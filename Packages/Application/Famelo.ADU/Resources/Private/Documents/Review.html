@@ -1,0 +1,169 @@
+<f:layout name="Document" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+{namespace feature=Famelo\Features\ViewHelpers}
+{namespace a=Famelo\ADU\ViewHelpers}
+{namespace c=Community\CacheExtensions\ViewHelpers}
+
+<f:section name="content">
+
+<table class="table table-striped table-condensed table-bordered list-table onlyreview" data-klove="container" style="width:100%">
+    <thead>
+        <tr>
+            <f:comment> --------------------</f:comment>
+            <f:comment> --- CURRENT YEAR ---</f:comment>
+            <f:comment> --------------------</f:comment>
+
+            <f:if condition="{cycle} == 'currentYearPart1'">
+                <th><strong>Aktuelles Jahr</strong></th>
+                <f:render partial="Survey/Weeks1" />
+            </f:if>
+            <f:if condition="{cycle} == 'currentYearPart2'">
+                <th><strong>Aktuelles Jahr</strong></th>
+                <f:render partial="Survey/Weeks2" />
+            </f:if>
+            <f:if condition="{cycle} == 'currentYearPart3'">
+                <th><strong>Aktuelles Jahr</strong></th>
+                <f:render partial="Survey/Weeks3" />
+            </f:if>
+            <f:if condition="{cycle} == 'currentYearPart4'">
+                <th><strong>Aktuelles Jahr</strong></th>
+                <f:render partial="Survey/Weeks4" />
+            </f:if>
+
+            <f:comment> --------------------</f:comment>
+            <f:comment> --- LAST YEAR ---</f:comment>
+            <f:comment> --------------------</f:comment>
+            <f:if condition="{cycle} == 'lastYearPart1'">
+                <th><strong>Letztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks1" />
+            </f:if>
+            <f:if condition="{cycle} == 'lastYearPart2'">
+                <th><strong>Letztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks2" />
+            </f:if>
+            <f:if condition="{cycle} == 'lastYearPart3'">
+                <th><strong>Letztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks3" />
+            </f:if>
+            <f:if condition="{cycle} == 'lastYearPart4'">
+                <th><strong>Letztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks4" />
+            </f:if>
+
+
+            <f:comment> --------------------</f:comment>
+            <f:comment> --- -2 YEAR ---</f:comment>
+            <f:comment> --------------------</f:comment>
+            <f:if condition="{cycle} == 'last2YearsPart1'">
+                <th><strong>Vorletztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks1" />
+            </f:if>
+            <f:if condition="{cycle} == 'last2YearsPart2'">
+                <th><strong>Vorletztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks2" />
+            </f:if>
+            <f:if condition="{cycle} == 'last2YearsPart3'">
+                <th><strong>Vorletztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks3" />
+            </f:if>
+            <f:if condition="{cycle} == 'last2YearsPart4'">
+                <th><strong>Vorletztes Jahr</strong></th>
+                <f:render partial="Survey/Weeks4" />
+            </f:if>
+
+        </tr>
+    </thead>
+    <tbody class="list">
+            <f:for each="{customers}" as="customer">
+                <tr>
+                    <td class="name">{customer.html -> f:format.raw()}</td>
+
+                    <feature:active feature="Befragungen">
+                        <f:if condition="{year} == 'current'">
+
+                            <f:for each="{customer.surveysForCurrentYear}" as="survey" iteration="iterator">
+
+                                <f:if condition="{iterator.cycle} >= {startWeek}">
+                                    <f:if condition="{iterator.cycle} <= {endWeek}">
+                                        <td class="{iterator.cycle}">
+
+                                            <f:if condition="{survey}">
+                                                <f:then>
+                                                	<img src="{f:uri.resource(path: survey.resultImage, package: 'Famelo.ADU')}" />
+                                                </f:then>
+                                                <f:else>
+                                                  <img src="{f:uri.resource(path: 'img/Button-White.png', package: 'Famelo.ADU')}" />
+                                                </f:else>
+                                            </f:if>
+
+                                        </td>
+                                    </f:if>
+                                </f:if>
+
+                            </f:for>
+                        </f:if>
+
+
+                        <f:if condition="{year} == 'last'">
+
+                            <f:for each="{customer.surveysForLastYear}" as="survey" iteration="iterator">
+
+                                <f:if condition="{iterator.cycle} >= {startWeek}">
+                                    <f:if condition="{iterator.cycle} <= {endWeek}">
+                                        <td class="{iterator.cycle}">
+
+                                            <f:if condition="{survey}">
+                                                <f:then>
+                                                	<img src="{f:uri.resource(path: survey.resultImage, package: 'Famelo.ADU')}" />
+                                                </f:then>
+                                                <f:else>
+                                                  <img src="{f:uri.resource(path: 'img/Button-White.png', package: 'Famelo.ADU')}" />
+                                                </f:else>
+                                            </f:if>
+
+                                        </td>
+                                    </f:if>
+                                </f:if>
+
+                            </f:for>
+                        </f:if>
+
+
+
+                        <f:if condition="{year} == 'last2'">
+
+                            <f:for each="{customer.surveysForLast2Years}" as="survey" iteration="iterator">
+
+                                <f:if condition="{iterator.cycle} >= {startWeek}">
+                                    <f:if condition="{iterator.cycle} <= {endWeek}">
+                                        <td class="{iterator.cycle}">
+
+                                            <f:if condition="{survey}">
+                                                <f:then>
+                                                	<img src="{f:uri.resource(path: survey.resultImage, package: 'Famelo.ADU')}" />
+                                                </f:then>
+                                                <f:else>
+                                                  <img src="{f:uri.resource(path: 'img/Button-White.png', package: 'Famelo.ADU')}" />
+                                                </f:else>
+                                            </f:if>
+
+                                        </td>
+                                    </f:if>
+                                </f:if>
+
+                            </f:for>
+                        </f:if>
+
+
+                    </feature:active>
+
+
+
+            </tr>
+            </f:for>
+
+    </tbody>
+</table>
+
+
+</f:section>

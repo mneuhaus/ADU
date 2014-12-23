@@ -1,0 +1,30 @@
+prototype(Famelo.ADU:Report.Survey) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Report/Survey/List.html'
+	elements = TYPO3.TypoScript:Collection {
+		collection = ${objects}
+		itemName = 'item'
+		itemRenderer = Famelo.ADU:Report.SurveyRow
+	}
+	objects = ${objects}
+}
+
+prototype(Famelo.ADU:Report.SurveyRow) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Report/Survey/Element.html'
+	customer = ${item}
+	type = ${type}
+	controllerLinks = Famelo.ADU:Customer.Links
+}
+
+prototype(Famelo.ADU:Report.Survey).prototype(TYPO3.Expose:RecordList) {
+	recordList.report = Famelo.ADU:Report.Survey
+	currentFormat = 'report'
+	bottomRegion {
+		limits = Famelo.ADU:Null
+		paginator = Famelo.ADU:Null
+	}
+}
+
+prototype(Famelo.ADU:Null) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
+	value = ''
+}

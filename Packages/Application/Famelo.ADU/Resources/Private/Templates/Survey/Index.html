@@ -1,0 +1,9 @@
+<f:layout name="Main" />
+{namespace s=Famelo\Scaff\ViewHelpers}
+{namespace e=TYPO3\Expose\ViewHelpers}
+
+<f:section name="content">
+	<div class="survey-new">
+		<e:render.action controller="List" type="\Famelo\ADU\Domain\Model\Survey" />
+	</div>
+</f:section>

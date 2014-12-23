@@ -1,0 +1,4 @@
+prototype(TYPO3.Expose:ListJs) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/Processors/ListJs.html'
+	objects = ${objects}
+}

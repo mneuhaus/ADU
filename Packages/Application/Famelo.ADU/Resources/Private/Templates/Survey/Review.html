@@ -1,0 +1,327 @@
+<f:layout name="Main" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+{namespace feature=Famelo\Features\ViewHelpers}
+{namespace a=Famelo\ADU\ViewHelpers}
+{namespace c=Community\CacheExtensions\ViewHelpers}
+
+
+<f:section name="content">
+    <div class="survey-review">
+
+        <div id="listjs">
+
+        <div class="filter-bar">
+            <f:form action="review" controller="Survey" object="customer">
+
+                <div class="filter">
+                    <label>Zeitraum</label>
+                    <f:form.select name="cycle" options="{
+                    currentYearPart1:'Aktuelles Jahr - KW 1-13',currentYearPart2:'Aktuelles Jahr - KW 14-26',currentYearPart3:'Aktuelles Jahr - KW 27-39',currentYearPart4:'Aktuelles Jahr - KW 40-52',
+                    lastYearPart1:'Letztes Jahr - KW 1-13',lastYearPart2:'Letztes Jahr - KW 14-26',lastYearPart3:'Letztes Jahr - KW 27-39',lastYearPart4:'Letztes Jahr - KW 40-52',
+                    last2YearsPart1:'Vorletztes Jahr - KW 1-13',last2YearsPart2:'Vorletztes Jahr - KW 14-26',last2YearsPart3:'Vorletztes Jahr - KW 27-39',last2YearsPart4:'Vorletztes Jahr - KW 40-52'
+
+                    }" value="{cycle}" />
+                </div>
+
+                <div class="filter">
+                    <label>Aktualisieren</label>
+                    <f:form.submit name="submit" class="btn" value="Zeitraum aktualisieren" />
+                </div>
+
+            </f:form>
+        </div>
+
+        <div class="filter-bar">
+
+            <f:form action="generateSelfEvaluation" controller="Survey" object="customer">
+
+                <div class="filter">
+                    <label>Kundenberater</label>
+                    <a:form.advancedSelect id="filter-consultant" name="consultant" options="{customers}" addDefaultOption="true" defaultOption="Alle" optionLabelField="consultant" optionValueField="consultant.username" sortByOptionLabel="true" />
+
+                </div>
+
+                <div class="filter">
+                    <label>Niederlassung</label>
+                    <a:form.advancedSelect id="filter-branch" name="branch" options="{customers}" addDefaultOption="true" defaultOption="Alle" optionLabelField="branch" optionValueField="branch" sortByOptionLabel="true" />
+
+                </div>
+
+
+                <div class="filter">
+                    <label>Export</label>
+                    <f:link.action action="reviewPdf" class="btn" arguments="{cycle: cycle}" target="_blank">PDF Generieren</f:link.action>
+                </div>
+
+            </f:form>
+
+
+
+        <table class="table table-striped table-condensed table-bordered list-table onlyreview" data-klove="container" style="width:100%">
+            <thead>
+                <tr>
+                    <f:comment> --------------------</f:comment>
+                    <f:comment> --- CURRENT YEAR ---</f:comment>
+                    <f:comment> --------------------</f:comment>
+
+                    <f:if condition="{cycle} == 'currentYearPart1'">
+                        <th><strong>Aktuelles Jahr</strong></th>
+                        <f:render partial="Survey/Weeks1" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'currentYearPart2'">
+                        <th><strong>Aktuelles Jahr</strong></th>
+                        <f:render partial="Survey/Weeks2" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'currentYearPart3'">
+                        <th><strong>Aktuelles Jahr</strong></th>
+                        <f:render partial="Survey/Weeks3" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'currentYearPart4'">
+                        <th><strong>Aktuelles Jahr</strong></th>
+                        <f:render partial="Survey/Weeks4" />
+                    </f:if>
+
+                    <f:comment> --------------------</f:comment>
+                    <f:comment> --- LAST YEAR ---</f:comment>
+                    <f:comment> --------------------</f:comment>
+                    <f:if condition="{cycle} == 'lastYearPart1'">
+                        <th><strong>Letztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks1" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'lastYearPart2'">
+                        <th><strong>Letztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks2" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'lastYearPart3'">
+                        <th><strong>Letztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks3" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'lastYearPart4'">
+                        <th><strong>Letztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks4" />
+                    </f:if>
+
+
+                    <f:comment> --------------------</f:comment>
+                    <f:comment> --- -2 YEAR ---</f:comment>
+                    <f:comment> --------------------</f:comment>
+                    <f:if condition="{cycle} == 'last2YearsPart1'">
+                        <th><strong>Vorletztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks1" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'last2YearsPart2'">
+                        <th><strong>Vorletztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks2" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'last2YearsPart3'">
+                        <th><strong>Vorletztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks3" />
+                    </f:if>
+                    <f:if condition="{cycle} == 'last2YearsPart4'">
+                        <th><strong>Vorletztes Jahr</strong></th>
+                        <f:render partial="Survey/Weeks4" />
+                    </f:if>
+
+                </tr>
+            </thead>
+            <tbody class="list">
+                    <f:for each="{customers}" as="customer">
+                        <tr>
+                            <td class="name">{customer.html -> f:format.raw()}</td>
+                            <td class="origname hidden">{customer.name}</td>
+                            <td class="consultant hidden">{customer.consultant}</td>
+                            <td class="branch hidden">{customer.branch}</td>
+
+                            <feature:active feature="Befragungen">
+                                <f:if condition="{year} == 'current'">
+
+                                    <f:for each="{customer.surveysForCurrentYear}" as="survey" iteration="iterator">
+
+                                        <f:if condition="{iterator.cycle} >= {startWeek}">
+                                            <f:if condition="{iterator.cycle} <= {endWeek}">
+                                                <td class="{iterator.cycle}">
+
+                                                    <f:if condition="{survey}">
+                                                        <f:then>
+
+			    						                    <span class="evaluation badge-{survey.resultColor}"
+                                                                rel="popover"
+                                                                data-title="{survey.created -> f:format.date(format: 'd.m.Y')}"
+                                                                data-content="
+	    									                    <p>
+    	    										                <dl>
+    	    											                <f:for each='{survey.answers}' as='answer'>
+    		    											                <f:if condition="{answer.comment}">
+                                                                                <dt>{answer.question}: </dt>
+                                                                                <dd style='margin-bottom: 10px;'>
+                                                                                {answer.comment}<br />
+                                                                                <b>{answer.note}</b>
+                                                                                </dd>
+                                                                            </f:if>
+                                                                        </f:for>
+                                                                    </dl>
+                                                                </p>"
+                                                                >{customer.marker}</span>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <span class="evaluation badge-white">&nbsp;</span>
+                                                        </f:else>
+                                                    </f:if>
+
+                                                </td>
+                                            </f:if>
+                                        </f:if>
+
+                                    </f:for>
+                                </f:if>
+
+
+                                <f:if condition="{year} == 'last'">
+
+                                    <f:for each="{customer.surveysForLastYear}" as="survey" iteration="iterator">
+
+                                        <f:if condition="{iterator.cycle} >= {startWeek}">
+                                            <f:if condition="{iterator.cycle} <= {endWeek}">
+                                                <td class="{iterator.cycle}">
+
+                                                    <f:if condition="{survey}">
+                                                        <f:then>
+
+			    						                    <span class="evaluation badge-{survey.resultColor}"
+                                                                  rel="popover"
+                                                                  data-title="{survey.created -> f:format.date(format: 'd.m.Y')}"
+                                                                  data-content="
+	    									                    <p>
+    	    										                <dl>
+    	    											                <f:for each='{survey.answers}' as='answer'>
+    		    											                <f:if condition="{answer.comment}">
+                                                                                <dt>{answer.question}: </dt>
+                                                                                <dd style='margin-bottom: 10px;'>
+                                                                                {answer.comment}<br />
+                                                                                <b>{answer.note}</b>
+                                                                                </dd>
+                                                                            </f:if>
+                                                                        </f:for>
+                                                                    </dl>
+                                                                </p>"
+                                                            >{customer.marker}</span>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <span class="evaluation badge-white">&nbsp;</span>
+                                                        </f:else>
+                                                    </f:if>
+
+                                                </td>
+                                            </f:if>
+                                        </f:if>
+
+                                    </f:for>
+                                </f:if>
+
+
+
+                                <f:if condition="{year} == 'last2'">
+
+                                    <f:for each="{customer.surveysForLast2Years}" as="survey" iteration="iterator">
+
+                                        <f:if condition="{iterator.cycle} >= {startWeek}">
+                                            <f:if condition="{iterator.cycle} <= {endWeek}">
+                                                <td class="{iterator.cycle}">
+
+                                                    <f:if condition="{survey}">
+                                                        <f:then>
+
+			    						                    <span class="evaluation badge-{survey.resultColor}"
+                                                                  rel="popover"
+                                                                  data-title="{survey.created -> f:format.date(format: 'd.m.Y')}"
+                                                                  data-content="
+	    									                    <p>
+    	    										                <dl>
+    	    											                <f:for each='{survey.answers}' as='answer'>
+    		    											                <f:if condition="{answer.comment}">
+                                                                                <dt>{answer.question}: </dt>
+                                                                                <dd style='margin-bottom: 10px;'>
+                                                                                {answer.comment}<br />
+                                                                                <b>{answer.note}</b>
+                                                                                </dd>
+                                                                            </f:if>
+                                                                        </f:for>
+                                                                    </dl>
+                                                                </p>"
+                                                                >{customer.marker}</span>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <span class="evaluation badge-white">&nbsp;</span>
+                                                        </f:else>
+                                                    </f:if>
+
+                                                </td>
+                                            </f:if>
+                                        </f:if>
+
+                                    </f:for>
+                                </f:if>
+
+
+                            </feature:active>
+
+
+
+                    </tr>
+                    </f:for>
+
+            </tbody>
+        </table>
+
+
+        </div>
+
+        </div>
+
+
+
+        <script type="text/javascript">
+            var options = {
+                valueNames: [ 'name', 'origname','consultant','branch','1','2','3','4','5','6','7','8','9','10','11','12','13','14' ],
+                page: 10000,
+                plugins: [
+                    [ 'filtering', {} ]
+                ]
+            };
+            var featureList = new List('listjs', options);
+            featureList.sort('origname',{ asc: "true" });
+
+
+            // function: filter list
+            function filterList() {
+
+                // filter consultant and branch
+                featureList.filter(function(item) {
+                    var filterConsultant = false;
+                    var filterBranch     = false;
+
+                    if ($('#filter-consultant').val() == "" || item.values().consultant == $('#filter-consultant option:selected').text())  filterConsultant = true; // important: jquery .text() at this place!
+                    if ($('#filter-branch').val()     == "" || item.values().branch     == $('#filter-branch').val())     filterBranch = true;
+
+                    return (filterConsultant && filterBranch);
+
+                });
+            }
+
+
+            $('#filter-consultant').click(function() {
+                filterList();
+            });
+
+            $('#filter-branch').click(function() {
+                filterList();
+            });
+
+
+            $(function() {
+               filterList(); // if a selectbox is pre-selected e.g. on browser F5
+            });
+
+        </script>
+
+</f:section>

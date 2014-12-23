@@ -1,0 +1,15 @@
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Question) < prototype(TYPO3.Expose:Schema) {
+	properties {
+		body {
+			label = 'Frage'
+			element = 'TYPO3.Form:MultiLineText'
+		}
+		weight {
+			label = 'Gewichtung'
+		}
+		type {
+			label = 'Art'
+			ignore = True
+		}
+	}
+}

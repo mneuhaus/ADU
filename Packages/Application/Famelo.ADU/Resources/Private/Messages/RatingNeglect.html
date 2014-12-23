@@ -1,0 +1,16 @@
+<f:if condition="{users}">
+	<f:then>
+		Die folgenden Kundenberater haben die Selbsteinschätzung diese Woche nicht durchgeführt:
+		<table>
+			<f:for each="{users}" as="user">
+			<tr>
+				<th>{user}</th>
+				<td>{user.email}</td>
+			</tr>
+			</f:for>
+		</table>
+	</f:then>
+	<f:else>
+		Alle Kundenberater haben die Selbsteinschätzung durchgeführt.
+	</f:else>
+</f:if>

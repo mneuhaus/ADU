@@ -1,0 +1,48 @@
+#                                                                        #
+# Security policy for the TYPO3 package                                  #
+#                                                                        #
+
+resources:
+  methods:
+    Home: 'method(Famelo\ADU\Controller\StandardController->(?!initialize).*Action(.*))'
+    Survey: 'method(Famelo\ADU\Controller\SurveyController->(?!initialize).*Action(.*))'
+    Report: 'method(Famelo\ADU\Controller\ReportController->(?!initialize).*Action(.*))'
+    Customer: 'method(Famelo\ADU\Controller\CustomerController->(?!initialize).*Action(.*))'
+    UserManagement: 'method(Famelo\ADU\Controller\UserController->(?!initialize).*Action(.*))'
+    Category: 'method(Famelo\ADU\Controller\CategoryController->(?!initialize).*Action(.*))'
+    Rating: 'method(Famelo\ADU\Controller\RatingsController->(?!initialize).*Action(.*))'
+    Branch: 'method(Famelo\ADU\Controller\BranchController->(?!initialize).*Action(.*))'
+    User: 'method(Famelo\ADU\Controller\UserController->(?!initialize).*Action(.*))'
+
+#    Everything: 'method(Famelo\ADU\Controller\(?!.*Login).*->.*Action(.*))'
+    Features: 'method(Famelo\Features\Controller\(?!.*Login).*->(?!initialize).*Action(.*))'
+    
+    deleteMethods: 'method(TYPO3\Expose\.*->delete.*())'
+
+
+roles:
+  Kundenberater: []
+  Niederlassungsleiter: [ Kundenberater ]
+  Innendienst: [ Niederlassungsleiter ]
+  Administrator: [ Innendienst ]
+
+acls:
+  Kundenberater:
+    methods:
+      Home: GRANT
+      Survey: GRANT
+      Report: GRANT
+      deleteMethods:       DENY
+  Niederlassungsleiter:
+    methods:
+      UserManagement: GRANT
+      Customer: GRANT
+      Rating: GRANT
+  Innendienst:
+    methods:
+      Branch: GRANT
+      User: GRANT
+  Administrator:
+    methods:
+      Features: GRANT
+      deleteMethods:       GRANT

@@ -1,0 +1,24 @@
+@navColor: #000;
+@navBorder: #555;
+@navVerticalBackground: #aaa;
+
+.nav-vertical {
+	li a{
+		border: 1px solid @navBorder;
+		background: @navVerticalBackground;
+		color: @navColor;
+	}
+
+	li a:hover {
+		background: @blue;
+		text-decoration: none;
+	}
+
+	ul a {
+		background: lighten(@navVerticalBackground, 15%);
+	}
+
+	ul ul a {
+		background: lighten(@navVerticalBackground, 30%);
+	}
+}

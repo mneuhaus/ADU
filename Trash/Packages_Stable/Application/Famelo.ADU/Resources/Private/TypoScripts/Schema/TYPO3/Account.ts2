@@ -1,0 +1,40 @@
+prototype(TYPO3.Expose:Schema:TYPO3.Flow.Security.Account) < prototype(TYPO3.Expose:Schema) {
+	properties {
+		party.ignore = true
+		authenticationProviderName.hidden = true
+		creationDate.ignore = true
+		expirationDate.ignore = true
+
+		authenticationProviderName {
+			element = 'TYPO3.Expose:Hidden'
+		}
+
+		accountIdentifier {
+			label = 'Benutzername	'
+		}
+
+		credentialsSource {
+			label = 'Passwort'
+			element = 'TYPO3.Expose:PasswordWithHashing'
+		}
+
+		roles {
+			element = 'TYPO3.Expose:RoleSelector'
+			optionsProvider.class = 'Role'
+			label = 'Rolle'
+		}
+	}
+}
+
+# string formatter expects the "value" to contain the object to be converted
+prototype(TYPO3.Expose:StringFormatter) {
+	toString.condition = ${q(value).is('[instanceof TYPO3\Flow\Security\Account]')}
+	toString.type = 'TYPO3.Expose:StringFormatter.Account'
+	toString.@position = 10
+	@override.formFieldType = ${value.accountIdentifier}
+}
+
+prototype(TYPO3.Expose:StringFormatter.Account) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://TYPO3.Expose/Private/Elements/StringFormatter/String.html'
+	value = ${value.accountIdentifier}
+}

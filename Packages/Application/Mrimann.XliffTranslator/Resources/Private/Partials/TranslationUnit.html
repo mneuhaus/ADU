@@ -1,0 +1,26 @@
+<div class="row translationUnit {translationUnit.class}">
+	<f:if condition="{translationUnit.perfetto}">
+		<span class="label label-success">Translated</span>
+	</f:if>
+	<f:if condition="{translationUnit.originalModified}">
+		<span class="label label-warning">Modified</span>
+	</f:if>
+	<f:if condition="{translationUnit.nonTranslated}">
+		<span class="label label-important">NEW</span>
+	</f:if>
+	<div class="span4">
+		From:<br />
+		{translationUnit.source}
+		<f:if condition="{translationUnit.originalModified}">
+			<f:then>
+				<hr />
+				Old-Original:<br />
+				{translationUnit.originalSource}
+			</f:then>
+		</f:if>
+	</div>
+	<div class="span7">
+		To:<br />
+		<f:form.textfield name="translationUnits[{translationUnit.transUnitId}][{toLang}]" value="{translationUnit.target}" class="input-xxlarge" />
+	</div>
+</div>

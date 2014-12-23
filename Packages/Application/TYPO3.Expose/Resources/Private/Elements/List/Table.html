@@ -1,0 +1,27 @@
+{namespace cm=TYPO3\Expose\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+
+<table class="table table-striped table-condensed table-bordered" >
+	<thead>
+		<tr>
+			<cm:schema object="{objects.0}">
+				<f:for each="{schema.properties}" as="property" key="propertyName">
+					<f:if condition="{property.ignore} == 0">
+						<f:if condition="{sorting.property} == {property}">
+							<f:then><th class="sort-{sorting.direction}"></f:then>
+							<f:else><th></f:else>
+						</f:if>
+							{f:translate(value: property.label, package: 'TYPO3.Expose')}
+						</th>
+					</f:if>
+				</f:for>
+			</cm:schema>
+			<th>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<ts:renderTypoScript path="tableBody"  />
+	</tbody>
+</table>

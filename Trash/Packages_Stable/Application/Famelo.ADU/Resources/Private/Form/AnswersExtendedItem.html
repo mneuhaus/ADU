@@ -1,0 +1,19 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+<div class="adu-answer">
+	<div class="media">
+		<div class="adu-question media-body">
+			<div class="question">
+				{inline.elements.question.defaultValue}
+			</div>
+			<span class="evaluation badge-no{inline.elements.answer.defaultValue}" style="display: block; float: none; margin: 10px 0;">&nbsp;</span>
+			<f:if condition="{inline.elements.comment.defaultValue}">
+			<div class="comment">
+				<b>Kommentar des Kunden:</b> {inline.elements.comment.defaultValue}
+			</div>
+			</f:if>
+			<div class="comment" style="margin-top: 10px;">
+				<form:renderRenderable renderable="{inline.elements.note}" />
+			</div>
+		</div>
+	</div>
+</div>

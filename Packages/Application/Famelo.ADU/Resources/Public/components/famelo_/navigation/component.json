@@ -1,0 +1,13 @@
+{
+  "name": "famelo/navigation",
+  "version": "0.0.0",
+  "main": "less/navs.less",
+  "_id": "famelo-navigation@1.0.0",
+  "readme": "ERROR: No README.md file found!",
+  "description": "ERROR: No README.md file found!",
+  "commit": "1a05079ea5da6157c19bf2dab04052f481b22c6b",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mneuhaus/famelo-component-navigation.git"
+  }
+}

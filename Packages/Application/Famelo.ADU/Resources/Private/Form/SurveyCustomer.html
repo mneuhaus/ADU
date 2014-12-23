@@ -1,0 +1,38 @@
+<f:layout name="TYPO3.Form:Field" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+<f:section name="field">
+	<f:form.select property="{element.identifier}" id="{element.uniqueIdentifier}" options="{element.properties.options}" class="xlarge chosen" errorClass="{element.properties.elementErrorClassAttribute}" />
+	<script>
+		var customerContacts = {
+			foo: ''<f:for each="{element.properties.options}" as="customer">,
+		"{customer.identity}": ["{customer.contact.identity}", "{customer.alternativeContact.identity}"]</f:for>
+		};
+
+		$(document).ready(function(){
+			$('#form-objects_0_contact').after('<select id="contact_storage" style="display:none;"/>');
+
+			$("#form-objects_0_customer").chosen().change(function(){
+				updateContactSelect($(this).val());
+			});
+
+			updateContactSelect($("#form-objects_0_customer").val());
+
+			function updateContactSelect(customerIdentity) {
+				var contactValue = $("#form-objects_0_contact").val();
+				$('#contact_storage').append($('#form-objects_0_contact option'));
+				var target = $("#form-objects_0_contact");
+				var storage = $('#contact_storage');
+				storage.append(target.find('option'));
+
+				target.append(storage.find('option[value="' + customerContacts[customerIdentity][0] + '"]'));
+				target.append(storage.find('option[value="' + customerContacts[customerIdentity][1] + '"]'));
+
+				// target.find('option').addClass('hidden');
+				// target.find('option[value="' + customerContacts[customerIdentity][0] + '"]').removeClass('hidden');
+				// target.find('option[value="' + customerContacts[customerIdentity][1] + '"]').removeClass('hidden');
+				target.val(contactValue);
+				target.trigger("liszt:updated");
+			};
+		});
+	</script>
+</f:section>

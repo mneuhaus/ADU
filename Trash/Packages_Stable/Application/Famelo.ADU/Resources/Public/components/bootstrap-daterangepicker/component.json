@@ -1,0 +1,9 @@
+{
+  "name": "bootstrap-daterangepicker",
+  "version": "0.0.0",
+  "commit": "d44e4283d64b24a22cd975efd54c4a12afe0a8ba",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dangrossman/bootstrap-daterangepicker.git"
+  }
+}

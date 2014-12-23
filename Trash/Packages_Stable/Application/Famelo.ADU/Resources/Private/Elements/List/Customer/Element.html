@@ -1,0 +1,23 @@
+{namespace a=Famelo\ADU\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<div class="media">
+<!--   <a class="pull-left " href="#">
+    <a:gravatar class="media-object" email="{item.contact.email}" />
+  </a> -->
+  <div class="media-body">
+    <h4 class="media-heading">{item.name}</h4>
+
+    <p class="hide">
+    	<i class="icon-user"></i> <a href="#">Admin</a> 
+    	| <i class="icon-calendar"></i> Sept 16th, 2012 at 4:20 pm
+     	| <i class="icon-comment"></i> <a href="#">3 Comments</a>
+       	| <i class="icon-share"></i> <a href="#">39 Shares</a>
+       	| <span class="line">5,4,1,1,6,4,1,1,5</span>
+	</p>
+
+    <div class="pull-right">
+      <ts:renderTypoScript path="controllerLinks" />
+    </div>
+  </div>
+</div>

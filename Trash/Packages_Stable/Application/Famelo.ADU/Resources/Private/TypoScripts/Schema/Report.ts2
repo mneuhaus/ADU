@@ -1,0 +1,41 @@
+prototype(Famelo.ADU:Report) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Report/Table.html'
+	elements = TYPO3.TypoScript:Collection {
+		collection = ${objects}
+		itemName = 'item'
+		itemRenderer = Famelo.ADU:ReportRow
+	}
+	objects = ${objects}
+}
+
+prototype(Famelo.ADU:ReportRow) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Report/Row.html'
+	customer = ${item}
+	type = ${type}
+	controllerLinks = Famelo.ADU:Customer.Links
+}
+
+prototype(Famelo.ADU:Report.ReportLinks) < prototype(TYPO3.Expose:GlobalControllerLinks) {
+	10 = TYPO3.Expose:ControllerLink
+	10.label = 'PDF Generieren'
+	10.action = 'generateSelfEvaluation'
+	10.controller = 'Famelo\\ADU\\Controller\\ReportController'
+	10.arguments.type = ${type}
+}
+
+prototype(Famelo.ADU:Report).prototype(TYPO3.Expose:RecordList) {
+	recordList.report = Famelo.ADU:Report
+	currentFormat = 'report'
+	bottomRegion {
+		limits = Famelo.ADU:Null
+		paginator = Famelo.ADU:Null
+	}
+	topRegion {
+		controllerLinks = Famelo.ADU:Report.ReportLinks
+	}
+}
+
+prototype(Famelo.ADU:Null) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
+	value = ''
+}

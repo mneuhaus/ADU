@@ -1,0 +1,104 @@
+<f:layout name="Main" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+
+<f:section name="content">
+	<h3>Selbsteinschätzung für die {week}. Kalenderwoche</h3>
+	<f:form action="saveHappiness" class="validate" id="self-evaluation-form">
+	<table class="table table-striped table-bordered happiness">
+		<th>Name</th>
+		<td>Bewertung</td>
+		<f:for each="{customers}" as="customer">
+		<tr>
+			<th>
+				{customer.html -> f:format.raw()}
+			</th>
+			<td style="width:250px;">
+				<div>
+					<f:if condition="{customer.isTerminated}">
+						<f:then>
+							Dieser Kunde kann nicht mehr bewertet werden.
+						</f:then>
+						<f:else>
+							<f:if condition="{customer.isNew}">
+								<f:then>
+									Dieser Kunde kann noch nicht bewertet werden.
+								</f:then>
+								<f:else>
+									<f:if condition="{customer.isTender}">
+										<f:then>
+											Dieser Kunde kann noch nicht bewertet werden.
+										</f:then>
+										<f:else>
+											<label class="radio-green">
+												<input type="radio" name="ratings[{customer.identity}][value]" data-element="prettyCheckable" value="1" data-marker='{customer.marker}' <f:if condition="{0: customer.ratingForThisWeek.level} == {0:'1'}">checked="checked"</f:if> />
+											</label>
+											<label class="radio-yellow">
+												<input type="radio" name="ratings[{customer.identity}][value]" data-element="prettyCheckable" value="2" data-marker='{customer.marker}' <f:if condition="{0: customer.ratingForThisWeek.level} == {0:'2'}">checked="checked"</f:if> />
+											</label>
+											<label class="radio-orange">
+												<input type="radio" name="ratings[{customer.identity}][value]" data-element="prettyCheckable" value="3" data-marker='{customer.marker}' <f:if condition="{0: customer.ratingForThisWeek.level} == {0:'3'}">checked="checked"</f:if> />
+											</label>
+											<label class="radio-red">
+												<input type="radio" name="ratings[{customer.identity}][value]" data-element="prettyCheckable" value="4" data-marker='{customer.marker}' <f:if condition="{0: customer.ratingForThisWeek.level} == {0:'4'}">checked="checked"</f:if> />
+											</label>
+										</f:else>
+									</f:if>
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</div>
+				<div class="form-horizontal hide" style="clear:both;">
+					<div class="control-group">
+					    <label class="control-label" for="inputEmail">Kommentar</label>
+					    <div class="controls">
+					    	<input type="text" id="inputEmail" required name="ratings[{customer.identity}][comment]" value="{customer.ratingForThisWeek.comment}">
+					    </div>
+					</div>
+					<div class="control-group">
+					    <label class="control-label" for="ratings.{customer.identity}.action">Maßnahme</label>
+					    <div class="controls">
+					    	<input type="text" id="ratings.{customer.identity}.action" required name="ratings[{customer.identity}][action]" value="{customer.ratingForThisWeek.action}">
+					    </div>
+					</div>
+					<div class="control-group">
+					    <label class="control-label" for="ratings.{customer.identity}.date">Datum</label>
+					    <div class="controls">
+					    	<input type="text" id="ratings.{customer.identity}.date" required name="ratings[{customer.identity}][date]" data-date-format="dd.mm.yy" value="{customer.ratingForThisWeek.date -> f:format.date(format: 'd.m.Y')}">
+					    </div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		</f:for>
+	</table>
+	<div id="warning" class="alert alert-error" style="display: none;">Es wurden nicht alle Pflichtfelder ausgefüllt!</div>
+	<div id="warning-not-complete" class="alert alert-error" style="display: none;">Es müssen alle Kunden eingeschätzt werden!</div>
+	<f:form.submit value="Speichern" />
+	</f:form>
+
+	<script>
+		$(document).ready(function(){
+			$('#self-evaluation-form').submit(function(){
+				var names = {};
+				$('input[type="radio"]').each(function(){
+					var name = $(this).attr('name');
+					names[name] = name;
+				});
+				var complete = true;
+				for(var name in names){
+					var input = $('input[name="'+name+'"]:checked');
+					if (input.length < 1) {
+						complete = false;
+						$('input[name="'+name+'"]').parents('tr').addClass('error');
+						$('#warning-not-complete').show();
+					} else {
+						$('input[name="'+name+'"]').parents('tr').removeClass('error');
+						$('#warning-not-complete').hide();
+					}
+				};
+				return complete;
+			});
+		});
+	</script>
+</f:section>

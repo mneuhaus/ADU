@@ -1,0 +1,9 @@
+{
+  "name": "raty",
+  "version": "0.0.0",
+  "commit": "8e7798a1d4c550309ebb772e28abd9d47426736c",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wbotelhos/raty.git"
+  }
+}

@@ -1,0 +1,66 @@
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.User) < prototype(TYPO3.Expose:Schema) {
+	properties {
+		customers.ignore = true
+		role.ignore = true
+		electronicAddresses.ignore = true
+		primaryElectronicAddress.ignore = true
+		origin.ignore = true
+
+		accounts {
+			label = 'Zugangsdaten'
+			inline {
+				element = 'TYPO3.Expose:InlineSeamless'
+				multipleMode = false
+			}
+		}
+		name {
+			label = 'Name'
+			@position= 'after accounts'
+			inline {
+				element = 'TYPO3.Expose:InlineSeamless'
+			}
+		}
+		phone {
+			label = 'Telefon'
+		}
+		mobile {
+			label = 'Mobiltelefon'
+		}
+		email {
+			label = 'E-Mail'
+		}
+		branch {
+			label = 'Niederlassung'
+		}
+	}
+}
+
+prototype(TYPO3.Expose:RecordList).prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.User) {
+	properties {
+		name.ignore = true
+		#branch.ignore = true
+		phone.ignore = true
+		email.ignore = true
+		mobile.ignore = true
+	}
+}
+
+
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.User).prototype(TYPO3.Expose:RecordList) {
+	recordList.userList = Famelo.ADU:UserList
+	currentFormat = 'userList'
+	bottomRegion {
+		limits = Famelo.ADU:Null
+		paginator = Famelo.ADU:Null
+	}
+}
+
+prototype(Famelo.ADU:UserList) < prototype(Famelo.ADU:CustomerList) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/User/Table.html'
+	elements.itemRenderer = Famelo.ADU:UserRow
+}
+
+prototype(Famelo.ADU:UserRow) < prototype(Famelo.ADU:CustomerRow) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/User/Row.html'
+	user = ${item}
+}

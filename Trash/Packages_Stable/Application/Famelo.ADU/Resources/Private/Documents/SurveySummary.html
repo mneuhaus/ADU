@@ -1,0 +1,19 @@
+<f:layout name="Document" />
+{namespace a=Famelo\ADU\ViewHelpers}
+
+<f:section name="content">
+	<table>
+		<tr>
+			<th>Frage</th>
+			<th>Bewertung</th>
+			<th>Kommentar</th>
+		</tr>
+	<f:for each="{survey.answers}" as="answer">
+		<tr>
+			<td>{answer.question}</td>
+			<td><img src="{f:uri.resource(path: answer.image, package: 'Famelo.ADU')}" /></td>
+			<td>{answer.comment}</td>
+		</tr>
+	</f:for>
+	</table>
+</f:section>

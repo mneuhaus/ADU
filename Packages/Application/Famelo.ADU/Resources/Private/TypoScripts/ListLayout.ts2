@@ -1,0 +1,31 @@
+TYPO3.Expose.DuplicateController.index = TYPO3.Expose:FormLayout
+Famelo.ADU.DuplicateController.index = TYPO3.Expose:FormLayout
+
+
+prototype(TYPO3.Expose:RecordList) {
+	bottomRegion {
+		limits = Famelo.ADU:Null
+		paginator = Famelo.ADU:Null
+	}
+}
+
+prototype(Famelo.ADU:Null) {
+	@class = 'TYPO3\\TypoScript\\TypoScriptObjects\\ValueImplementation'
+	value = ''
+}
+
+prototype(TYPO3.Expose:LocalControllerLinks)  {
+    30 = TYPO3.Expose:LocalControllerLink
+    30.label = 'Duplicate'
+    30.action = 'index'
+    30.controller = 'TYPO3\\Expose\\Controller\\DuplicateController'
+
+    #40 = TYPO3.Expose:LocalControllerLink
+    #40.label = 'Duplicate Famelo ADU'
+    #40.action = 'index'
+    #40.controller = 'Famelo\\ADU\\Controller\\DuplicateController'
+
+}
+
+prototype(TYPO3.Expose:RecordList) >>
+

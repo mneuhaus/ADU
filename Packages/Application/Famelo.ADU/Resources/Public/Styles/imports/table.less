@@ -1,0 +1,78 @@
+
+.table {
+  th {
+    background: #f3f3f3;
+    color: #777;
+    font-weight: normal;
+    border-right: none;
+  }
+}
+
+.table-striped tbody tr:nth-child(odd) td,
+.table-striped tbody tr:nth-child(odd) th {
+  background: none;
+}
+
+.table-striped tbody tr:nth-child(even) td,
+.table-striped tbody tr:nth-child(even) th {
+  background: #fafafa;
+}
+
+// BORDERED VERSION
+// ----------------
+
+.table-bordered {
+  .border-radius(@tableBorderRadius);
+  // For first th or td in the first row in the first thead or tbody
+  thead:first-child tr:first-child th:first-child,
+  tbody:first-child tr:first-child td:first-child {
+    -webkit-border-top-left-radius: @tableBorderRadius;
+            border-top-left-radius: @tableBorderRadius;
+        -moz-border-radius-topleft: @tableBorderRadius;
+  }
+  thead:first-child tr:first-child th:last-child,
+  tbody:first-child tr:first-child td:last-child {
+    -webkit-border-top-right-radius: @tableBorderRadius;
+            border-top-right-radius: @tableBorderRadius;
+        -moz-border-radius-topright: @tableBorderRadius;
+  }
+  // For first th or td in the first row in the first thead or tbody
+  thead:last-child tr:last-child th:first-child,
+  tbody:last-child tr:last-child td:first-child,
+  tfoot:last-child tr:last-child td:first-child {
+    .border-radius(0 0 0 @tableBorderRadius);
+    -webkit-border-bottom-left-radius: @tableBorderRadius;
+            border-bottom-left-radius: @tableBorderRadius;
+        -moz-border-radius-bottomleft: @tableBorderRadius;
+  }
+  thead:last-child tr:last-child th:last-child,
+  tbody:last-child tr:last-child td:last-child,
+  tfoot:last-child tr:last-child td:last-child {
+    -webkit-border-bottom-right-radius: @tableBorderRadius;
+            border-bottom-right-radius: @tableBorderRadius;
+        -moz-border-radius-bottomright: @tableBorderRadius;
+  }
+
+  // Special fixes to round the left border on the first td/th
+  caption + thead tr:first-child th:first-child,
+  caption + tbody tr:first-child td:first-child,
+  colgroup + thead tr:first-child th:first-child,
+  colgroup + tbody tr:first-child td:first-child {
+    -webkit-border-top-left-radius: @tableBorderRadius;
+            border-top-left-radius: @tableBorderRadius;
+        -moz-border-radius-topleft: @tableBorderRadius;
+  }
+  caption + thead tr:first-child th:last-child,
+  caption + tbody tr:first-child td:last-child,
+  colgroup + thead tr:first-child th:last-child,
+  colgroup + tbody tr:first-child td:last-child {
+    -webkit-border-top-right-radius: @tableBorderRadius;
+            border-top-right-radius: @tableBorderRadius;
+        -moz-border-radius-topright: @tableBorderRadius;
+  }
+
+}
+
+td > dl {
+  margin: 0;
+}

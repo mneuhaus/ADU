@@ -1,0 +1,19 @@
+{namespace e=TYPO3\Expose\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<e:schema object="{user}">
+	<tr>
+		<f:for each="{schema.properties}" as="property" key="propertyName">
+			<f:if condition="{property.ignore} == 0">
+				<td class="{propertyName}">
+					<e:objectAccess object="{user}" property="{propertyName}">
+						{value -> e:formatAsString()}
+					</e:objectAccess>
+				</td>
+			</f:if>
+		</f:for>
+		<td>
+			<ts:renderTypoScript path="controllerLinks" />
+		</td>
+	</tr>
+</e:schema>

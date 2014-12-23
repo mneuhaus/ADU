@@ -1,0 +1,444 @@
+<f:layout name="Document" />
+{namespace a=Famelo\ADU\ViewHelpers}
+
+<f:section name="content">
+
+<f:if condition="{yearReporting}">
+<f:then>
+
+<h3>
+    Jahresauswertung
+    <f:if condition="{cycle} == 'currentYear'"><f:format.date format="Y">now</f:format.date></f:if>
+    <f:if condition="{cycle} == 'lastYear'"><f:format.date format="Y">-1 year</f:format.date></f:if>
+    <f:if condition="{cycle} == '-2years'"><f:format.date format="Y">-2 years</f:format.date></f:if>
+    <f:if condition="{cycle} == '-3years'"><f:format.date format="Y">-3 years</f:format.date></f:if>
+
+</h3>
+
+<f:for each="{customers}" as="customer">
+  	<h4>{customer.name}</h4>
+
+    Kalenderwochen:<br />
+    <f:if condition="{cycle} == 'currentYear'">
+        <f:for each="{customer.ratingImagesForThisYear}" as="ratingImage">
+            <img src="{f:uri.resource(path: ratingImage, package: 'Famelo.ADU')}" />
+        </f:for>
+    </f:if>
+
+    <f:if condition="{cycle} == 'lastYear'">
+        <f:for each="{customer.ratingImagesForLastYear}" as="ratingImage">
+            <img src="{f:uri.resource(path: ratingImage, package: 'Famelo.ADU')}" />
+        </f:for>
+    </f:if>
+
+    <f:if condition="{cycle} == '-2years'">
+        <f:for each="{customer.ratingImagesFor2LastYears}" as="ratingImage">
+            <img src="{f:uri.resource(path: ratingImage, package: 'Famelo.ADU')}" />
+        </f:for>
+    </f:if>
+
+    <br />
+
+    <f:if condition="{showComments}">
+    <h4>Kommentare / Maßnahmen</h4>
+    <f:for each='{customer.latestSurvey.answers}' as='answer'>
+        <f:if condition="{answer.comment}">
+            <dt>{answer.question}: </dt>
+            <dd style='margin-bottom: 10px;'>
+                {answer.comment}<br />
+                <b>{answer.note}</b>
+            </dd>
+        </f:if>
+    </f:for>
+    </f:if>
+
+    <hr />
+
+</f:for>
+</f:then>
+
+<f:else>
+
+
+<f:comment> -------------------------------- </f:comment>
+<h3>
+Auswertung vom <f:format.date format="d.m.Y">now</f:format.date>
+</h3>
+Zeitraum:
+<f:if condition="{cycle} == '3w'">-3 Wochen</f:if>
+<f:if condition="{cycle} == '6w'">-6 Wochen</f:if>
+<f:if condition="{cycle} == '9w'">-9 Wochen</f:if>
+<hr />
+
+
+	<h3>Rot bewertete Kunden</h3>
+
+	<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
+	  <thead>
+	    <tr>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Kundenschlüssel
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Einschätzung<br />
+	      	(
+	      	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	      	<f:if condition="{cycle} == '6w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+				/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+			</f:if>
+	      	)
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <f:for each="{customers}" as="customer">
+		<f:if condition="{customer.currentRatingColor} == 'red'">
+	    <tr>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	        <b>{customer.name}</b>
+	        <f:if condition="{customer.object}">
+	        <br />{customer.object}
+	        </f:if>
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	{customer.category}
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+	      	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+	      	<f:if condition="{cycle} == '6w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+
+	        <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	                <f:if condition="{customer.isNew}">Neukunde</f:if>
+	                <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+					<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+
+	        </td>
+	      </td>
+	    </tr>
+	    </f:if>
+	    </f:for>
+	  </tbody>
+	</table>
+	<br />
+
+
+	<f:comment>-----------------------------------------------------------------</f:comment>
+
+	<h3>Orange bewertete Kunden</h3>
+
+	<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
+	  <thead>
+	    <tr>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Kundenschlüssel
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Einschätzung<br />
+	      	(
+	      	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	      	<f:if condition="{cycle} == '6w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+				/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+			</f:if>
+	      	)
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <f:for each="{customers}" as="customer">
+		<f:if condition="{customer.currentRatingColor} == 'orange'">
+
+	    <tr>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	        <b>{customer.name}</b>
+	        <f:if condition="{customer.object}">
+	        <br />{customer.object}
+	        </f:if>
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	{customer.category}
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+	      	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+	      	<f:if condition="{cycle} == '6w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+
+	        <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	                <f:if condition="{customer.isNew}">Neukunde</f:if>
+	                <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+					<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+
+	        </td>
+	      </td>
+	    </tr>
+	    </f:if>
+
+	    </f:for>
+	  </tbody>
+	</table>
+	<br />
+
+	<f:comment>-----------------------------------------------------------------</f:comment>
+
+	<h3>Neukunden</h3>
+
+	<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
+	  <thead>
+	    <tr>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Kundenschlüssel
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Einschätzung<br />
+	      	(
+	      	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	      	<f:if condition="{cycle} == '6w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+				/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+			</f:if>
+	      	)
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <f:for each="{customers}" as="customer">
+		<f:if condition="{customer.isNew}">
+
+	    <tr>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	        <b>{customer.name}</b>
+	        <f:if condition="{customer.object}">
+	        <br />{customer.object}
+	        </f:if>
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	{customer.category}
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+	      	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+	      	<f:if condition="{cycle} == '6w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+
+	        <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	                <f:if condition="{customer.isNew}">Neukunde</f:if>
+	                <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+					<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+
+	        </td>
+	      </td>
+	    </tr>
+
+	    </f:if>
+	    </f:for>
+
+	  </tbody>
+	</table>
+	<br />
+
+	<f:comment>-----------------------------------------------------------------</f:comment>
+
+	<h3>Gekündigte Kunden</h3>
+
+	<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
+	  <thead>
+	    <tr>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Kundenschlüssel
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Einschätzung<br />
+	      	(
+	      	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	      	<f:if condition="{cycle} == '6w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+				/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+			</f:if>
+	      	)
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <f:for each="{customers}" as="customer">
+		<f:if condition="{customer.isTerminated}">
+
+	    <tr>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	        <b>{customer.name}</b>
+	        <f:if condition="{customer.object}">
+	        <br />{customer.object}
+	        </f:if>
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	{customer.category}
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+	      	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+	      	<f:if condition="{cycle} == '6w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+
+	        <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	                <f:if condition="{customer.isNew}">Neukunde</f:if>
+	                <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+					<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+
+	        </td>
+	      </td>
+	    </tr>
+
+	    </f:if>
+	    </f:for>
+	  </tbody>
+	</table>
+	<br />
+
+	<f:comment>-----------------------------------------------------------------</f:comment>
+
+	<h3>Kunden in Ausschreibung</h3>
+
+	<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
+	  <thead>
+	    <tr>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Kundenschlüssel
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	Einschätzung<br />
+	      	(
+	      	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	      	<f:if condition="{cycle} == '6w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+				/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+				/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+			</f:if>
+	      	)
+	      </th>
+	      <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <f:for each="{customers}" as="customer">
+		<f:if condition="{customer.isTender}">
+
+	    <tr>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	        <b>{customer.name}</b>
+	        <f:if condition="{customer.object}">
+	        <br />{customer.object}
+	        </f:if>
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	      	{customer.category}
+	      </td>
+	      <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+	      	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+	      	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+	      	<f:if condition="{cycle} == '6w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+	      	<f:if condition="{cycle} == '9w'">
+					<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+					<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+			</f:if>
+
+	        <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	                <f:if condition="{customer.isNew}">Neukunde</f:if>
+	                <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+					<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+
+	        </td>
+	      </td>
+	    </tr>
+
+	    </f:if>
+	    </f:for>
+	  </tbody>
+	</table>
+</f:else>
+</f:if>
+
+
+</f:section>

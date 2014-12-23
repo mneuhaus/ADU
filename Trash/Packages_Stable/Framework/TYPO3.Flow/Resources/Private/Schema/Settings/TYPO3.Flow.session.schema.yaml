@@ -1,0 +1,16 @@
+type: dictionary
+additionalProperties: FALSE
+properties:
+  'inactivityTimeout': { type: integer, required: TRUE }
+  'name': { type: [string, 'null'], required: TRUE }
+  'garbageCollectionProbability': { type: integer, required: FALSE }
+  'cookie':
+    type: dictionary
+    required: TRUE
+    additionalProperties: FALSE
+    properties:
+      'lifetime': { type: integer }
+      'path': { type: string }
+      'secure': { type: boolean }
+      'httponly': { type: boolean }
+      'domain': { type: [ string, 'null' ] }

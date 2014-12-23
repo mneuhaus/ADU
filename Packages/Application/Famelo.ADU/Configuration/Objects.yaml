@@ -1,0 +1,25 @@
+#
+# Used to test annotation overrides
+#
+# YAML Syntax concerning quotes: http://yaml.org/spec/current.html#id2534365
+# TYPO3\Flow\Tests\Functional\Reflection\Fixtures\AnnotatedClass:
+#   annotations:
+#     TYPO3\Flow\Tests\Functional\Reflection\Fixtures\Annotations\AddedFromObjectsYaml:
+#       0: 'here''s to "quotes"'
+#       1: "here's to \"quotes\""
+#       2:
+#         title: 'bar'
+#     TYPO3\Flow\Annotations\Introduce: []
+#     properties:
+#       mail:
+#         TYPO3\Flow\Tests\Functional\Reflection\Fixtures\Annotations\AddedFromObjectsYaml: TRUE
+#       title:
+#         TYPO3\Flow\Annotations\Validate: []
+
+# TYPO3\Flow\Security\Account:
+#   annotations:
+#     properties:
+#       party:
+#         Doctrine\ORM\Mapping\ManyToOne:
+#           inversedBy: 'accounts'
+#           cascade: 'persist'

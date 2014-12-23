@@ -1,0 +1,9 @@
+<f:layout name="TYPO3.Form:Field" />
+{namespace e=TYPO3\Expose\ViewHelpers}
+<f:section name="field">
+	<f:form.hidden property="{element.identifier}" id="{element.uniqueIdentifier}" />
+	<b>{element.defaultValue.name}</b>
+	<f:if condition="{element.defaultValue.object}">
+	<br />{element.defaultValue.object}
+	</f:if>
+</f:section>

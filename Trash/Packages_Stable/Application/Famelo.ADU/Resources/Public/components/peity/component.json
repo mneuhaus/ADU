@@ -1,0 +1,46 @@
+{
+  "name": "peity",
+  "title": "Peity",
+  "description": "Progressive <canvas> bar, line and pie charts.",
+  "homepage": "http://benpickles.github.com/peity",
+  "version": "0.6.0",
+  "author": {
+    "name": "Ben Pickles",
+    "url": "https://github.com/benpickles"
+  },
+  "maintainers": [
+    {
+      "name": "Ben Pickles",
+      "url": "https://github.com/benpickles"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "LICENSE"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.3"
+  },
+  "keywords": [
+    "canvas",
+    "graph",
+    "chart",
+    "sparkline",
+    "pie",
+    "line",
+    "bar"
+  ],
+  "files": [
+    "jquery.peity.js",
+    "jquery.peity.min.js"
+  ],
+  "readme": "# Peity\n\nPeity (sounds like deity) is a simple jQuery plugin that converts an element's content into a simple mini `canvas` pie, line or bar chart.\n\n## Basic Usage\n\n### HTML\n\n    <span class=\"pie\">3/5</span>\n    <span class=\"line\">3,5,1,6,2</span>\n    <span class=\"bar\">2,5,3,6,2,1</span>\n\n### Javascript (jQuery)\n\n    $(\"span.pie\").peity(\"pie\");\n    $(\"span.line\").peity(\"line\");\n    $(\"span.bar\").peity(\"bar\");\n\n## Docs\n\nMore detailed usage can be found at [benpickles.github.com/peity](http://benpickles.github.com/peity/).\n\n## Copyright\n\nCopyright 2009-2012 [Ben Pickles](http://benpickles.com/). See [MIT-LICENSE](https://github.com/benpickles/peity/blob/master/MIT-LICENSE) for details.\n",
+  "readmeFilename": "README.markdown",
+  "_id": "peity@0.6.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/benpickles/peity.git"
+  }
+}

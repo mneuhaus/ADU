@@ -1,0 +1,47 @@
+{
+    "name": "famelo/distribution-adu",
+    "description": "Customer Satisfaction Management",
+    "license": "GPL-3.0+",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://ci.typo3.robertlemke.net/job/composer-packages/ws/repository/"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:mneuhaus/Famelo.ADU.git"
+        }
+    ],
+    "config": {
+        "vendor-dir": "Packages/Libraries",
+        "bin-dir": "bin"
+    },
+    "require": {
+        "typo3/flow": "dev-master#2866b6570ca4d8520138d5a5d495f49a61797b46",
+        "typo3/expose": "dev-master",
+        "typo3/kickstart": "dev-master",
+        "famelo/adu": "dev-master",
+        "famelo/gerrit": "*",
+        "mrimann/xlifftranslator": "*",
+        "typo3/swiftmailer": "*",
+        "community/cacheextensions": "*",
+        "typo3/setup": "*",
+        "fzaninotto/faker": "*",
+        "famelo/navigation": "*",
+        "famelo/scheduler": "*",
+        "gChartPhp/gChartPhp": "*",
+        "sandstorm/plumber": "*"
+    },
+    "require-dev": {
+        "typo3/buildessentials": "dev-master",
+        "mikey179/vfsstream": "1.1.*",
+        "debug/toolbar": "dev-master",
+        "typo3/surf": "dev-master",
+        "famelo/surf-sharedhosting": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "scripts": {
+        "post-update-cmd": "TYPO3\\Flow\\Composer\\InstallerScripts::postUpdateAndInstall",
+        "post-install-cmd": "TYPO3\\Flow\\Composer\\InstallerScripts::postUpdateAndInstall"
+    }
+}

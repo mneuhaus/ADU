@@ -1,0 +1,55 @@
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Rating) < prototype(TYPO3.Expose:Schema) {
+	properties {
+		created.ignore = TRUE
+		action{
+			label = 'Maßnahme'
+			element = 'TYPO3.Form:MultiLineText'
+		}
+		comment{
+			label = 'Kommentar'
+			element = 'TYPO3.Form:MultiLineText'
+		}
+		date.label = 'Datum'
+		customer {
+			label = 'Kunde/Objekt'
+			element = 'Famelo.ADU:CustomerString'
+		}
+		level {
+			label = 'Einschätzung'
+			@position = 'after customer'
+			element = 'Famelo.ADU:SelfEvaluationRating'
+		}
+
+	}
+}
+
+prototype(TYPO3.Expose:RecordList).prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Rating) {
+	// Custom Settings for the RecordList
+}
+
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Rating).prototype(TYPO3.Expose:RecordList) {
+	recordList.RatingList = Famelo.ADU:RatingList
+	currentFormat = 'RatingList'
+	bottomRegion {
+		limits = Famelo.ADU:Null
+		paginator = Famelo.ADU:Null
+	}
+}
+
+prototype(Famelo.ADU:RatingList) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Rating/Table.html'
+	rows = TYPO3.TypoScript:Collection {
+		collection = ${objects}
+		itemName = 'item'
+		itemRenderer = Famelo.ADU:RatingRow
+	}
+	objects = ${objects}
+	localControllerLinks = TYPO3.Expose:LocalControllerLinks
+}
+
+prototype(Famelo.ADU:RatingRow) < prototype(TYPO3.TypoScript:Template) {
+	templatePath = 'resource://Famelo.ADU/Private/Elements/List/Rating/Row.html'
+	rating = ${item}
+	type = ${type}
+	controllerLinks = TYPO3.Expose:LocalControllerLinks
+}

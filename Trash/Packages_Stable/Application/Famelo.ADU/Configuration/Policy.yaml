@@ -1,0 +1,40 @@
+#                                                                        #
+# Security policy for the TYPO3 package                                  #
+#                                                                        #
+
+resources:
+  methods:
+    Home: 'method(Famelo\ADU\Controller\StandardController->.*Action(.*))'
+    Survey: 'method(Famelo\ADU\Controller\SurveyController->.*Action(.*))'
+    Report: 'method(Famelo\ADU\Controller\ReportController->.*Action(.*))'
+    Customer: 'method(Famelo\ADU\Controller\CustomerController->.*Action(.*))'
+    UserManagement: 'method(Famelo\ADU\Controller\UserController->.*Action(.*))'
+    Category: 'method(Famelo\ADU\Controller\CategoryController->.*Action(.*))'
+    Rating: 'method(Famelo\ADU\Controller\RatingsController->.*Action(.*))'
+    Branch: 'method(Famelo\ADU\Controller\BranchController->.*Action(.*))'
+    User: 'method(Famelo\ADU\Controller\UserController->.*Action(.*))'
+
+#    Everything: 'method(Famelo\ADU\Controller\(?!.*Login).*->.*Action(.*))'
+    Features: 'method(Famelo\Features\Controller\(?!.*Login).*->.*Action(.*))'
+
+roles:
+  Kundenberater: []
+  Niederlassungsleiter: [ Kundenberater ]
+  Administrator: [ Niederlassungsleiter ]
+
+acls:
+  Kundenberater:
+    methods:
+      Home: GRANT
+      Survey: GRANT
+      Report: GRANT
+  Niederlassungsleiter:
+    methods:
+      UserManagement: GRANT
+      Customer: GRANT
+      Rating: GRANT
+  Administrator:
+    methods:
+      Branch: GRANT
+      User: GRANT
+      Features: GRANT

@@ -1,0 +1,208 @@
+#                                                                        #
+# Routes configuration                                                   #
+#                                                                        #
+# This file contains the configuration for the MVC router.               #
+# Just add your own modifications as necessary.                          #
+#                                                                        #
+# Please refer to the FLOW3 manual for possible configuration options.   #
+#                                                                        #
+
+-
+  name: 'Home'
+  uriPattern: ''
+#  navigation: 'Home'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Standard'
+    '@package': 'Famelo.ADU'
+
+######################################
+# Survey                             #
+######################################
+-
+  name: 'Survey'
+  uriPattern: 'survey'
+  navigation: 'Befragung'
+  feature: 'Befragungen'
+  defaults:
+    '@format': 'html'
+    '@action':     'new'
+    '@controller': 'Survey'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+-
+  name: 'Edit Surveys'
+  uriPattern: 'edit/survey'
+  navigation: 'Befragungen'
+  feature: 'Befragungen'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Survey'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+-
+  name: 'General Happiness'
+  uriPattern: 'selbsteinschaetzung'
+  navigation: 'Selbsteinschätzung'
+  defaults:
+    '@format': 'html'
+    '@action':     'happiness'
+    '@controller': 'Survey'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+######################################
+# Report                             #
+######################################
+-
+  name: 'Report'
+  uriPattern: 'report'
+  navigation: 'Auswertung'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Report'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+# -
+#   name: 'Report Surveys'
+#   uriPattern: 'report/surveys'
+#   navigation: 'Befragungen'
+#   feature: 'Befragungen'
+#   defaults:
+#     '@format': 'html'
+#     '@action':     'survey'
+#     '@controller': 'Report'
+#     '@package': 'Famelo.ADU'
+#   appendExceedingArguments: true
+
+# -
+#   name: 'Report'
+#   uriPattern: 'report'
+#   navigation: 'Auswertung'
+#   defaults:
+#     '@format': 'html'
+#     '@action':     'selfEvaluation'
+#     '@controller': 'Report'
+#     '@package': 'Famelo.ADU'
+#   appendExceedingArguments: true
+
+# -
+#   name: 'Report Overview'
+#   uriPattern: 'report/overview'
+# #  navigation: 'Auswertung'
+#   defaults:
+#     '@format': 'html'
+#     '@action':     'overview'
+#     '@controller': 'Report'
+#     '@package': 'Famelo.ADU'
+#   appendExceedingArguments: true
+
+-
+  name: 'Bearbeiten'
+  uriPattern: 'edit'
+  navigation: 'Bearbeiten'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Standard'
+    '@package': 'Famelo.ADU'
+
+######################################
+# Ratings                            #
+######################################
+
+-
+  name: 'Ratings'
+  uriPattern: 'edit/ratings'
+  navigation: 'Selbsteinschätzungen'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Ratings'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+######################################
+# Branch                             #
+######################################
+-
+  name: 'Banches'
+  uriPattern: 'edit/branch'
+  navigation: 'Niederlassungen'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Branch'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+######################################
+# Kategorien                         #
+######################################
+-
+  name: 'Categories'
+  uriPattern: 'edit/categories'
+  navigation: 'Kategorien'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Category'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+
+######################################
+# CustomerManagement                 #
+######################################
+-
+  name: 'CustomerManagement'
+  uriPattern: 'edit/customers'
+  navigation: 'Kunden'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'Customer'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+######################################
+# UserManagement                     #
+######################################
+-
+  name: 'UserManagement'
+  uriPattern: 'edit/users'
+  navigation: 'Nutzermanagement'
+  defaults:
+    '@format': 'html'
+    '@action':     'index'
+    '@controller': 'User'
+    '@package': 'Famelo.ADU'
+  appendExceedingArguments: true
+
+
+######################################
+# Login/logout                       #
+######################################
+-
+  name: 'Login'
+  uriPattern: 'login'
+  defaults:
+    '@format': 'html'
+    '@controller': 'Login'
+    '@action':     'index'
+    '@package': 'Famelo.ADU'
+
+-
+  name: 'Logout'
+  uriPattern: 'logout'
+  defaults:
+    '@format': 'html'
+    '@controller': 'Login'
+    '@action':     'logout'
+    '@package': 'Famelo.ADU'

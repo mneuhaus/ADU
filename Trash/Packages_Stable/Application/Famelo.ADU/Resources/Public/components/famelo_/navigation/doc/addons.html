@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../bootstrap.css" rel="stylesheet">
+    <link href="assets/css/docs.css" rel="stylesheet">
+    <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/ico/bootstrap-apple-57x57.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/ico/bootstrap-apple-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/ico/bootstrap-apple-114x114.png">
+  </head>
+
+  <body>
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="./index.html">Bootstrap</a>
+          <ul class="nav">
+            <li><a href="./index.html">Overview</a></li>
+            <li class="dropdown">
+              <a href="./scaffolding.html" class="dropdown-toggle" data-toggle="dropdown">
+                Scaffolding
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="./scaffolding.html#grid-system">Grid system</a></li>
+                <li><a href="./scaffolding.html#layouts">Layouts</a></li>
+                <li><a href="./scaffolding.html#responsive">Responsive design</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="./base-css.html" class="dropdown-toggle" data-toggle="dropdown">
+                Base CSS
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="./base-css.html#typography">Typography</a></li>
+                <li><a href="./base-css.html#tables">Tables</a></li>
+                <li><a href="./base-css.html#forms">Forms</a></li>
+                <li><a href="./base-css.html#buttons">Buttons</a></li>
+                <li><a href="./base-css.html#icons">Icons by Glyphicons</a></li>
+              </ul>
+            </li>
+            <li class="dropdown active">
+              <a href="./components.html" class="dropdown-toggle" data-toggle="dropdown">
+                Components
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="./components.html#buttonGroups">Button groups</a></li>
+                <li><a href="./components.html#buttonDropdowns">Split button dropdowns</a></li>
+                <li><a href="./components.html#navs">Nav, tabs, pills</a></li>
+                <li><a href="./components.html#navbar">Navbar</a></li>
+                <li><a href="./components.html#breadcrumbs">Breadcrumbs</a></li>
+                <li><a href="./components.html#pagination">Pagination</a></li>
+                <li><a href="./components.html#thumbnails">Thumbnails</a></li>
+                <li><a href="./components.html#alerts">Alert messages</a></li>
+                <li><a href="./components.html#progress">Progress bars</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="./javascript.html" class="dropdown-toggle" data-toggle="dropdown">
+                Javascript plugins
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="./javascript.html#transitions">Transition</a></li>
+                <li><a href="./javascript.html#modals">Modal</a></li>
+                <li><a href="./javascript.html#dropdowns">Dropdown</a></li>
+                <li><a href="./javascript.html#scrollspy">Scrollspy</a></li>
+                <li><a href="./javascript.html#tabs">Tab</a></li>
+                <li><a href="./javascript.html#tooltips">Tooltip</a></li>
+                <li><a href="./javascript.html#popovers">Popover</a></li>
+                <li><a href="./javascript.html#alerts">Alert</a></li>
+                <li><a href="./javascript.html#buttons">Button</a></li>
+                <li><a href="./javascript.html#collapse">Collapse</a></li>
+                <li><a href="./javascript.html#carousel">Carousel</a></li>
+                <li><a href="./javascript.html#typeahead">Typeahead</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="./less.html">
+                Using LESS
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Masthead
+      ================================================== -->
+      <header class="jumbotron subhead" id="overview">
+        <h1>Addons</h1>
+      </header>
+
+<!-- Nav
+================================================== -->
+<section id="navs">
+  <div class="page-header">
+    <h1>Expanding and Sliding Submenus</h1>
+  </div>
+  <div class="navbar navbar-static">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li class="dropdown mega">
+            <a href="#">Mega</a>
+            <div class="row">
+              <div class="span4">
+                <h3>Typographic scale</h3>
+                <p>The entire typographic grid is based on two Less variables in our preboot.less file: <code>@baseFontSize</code> and <code>@baseLineHeight</code>. The first is the base font-size used throughout and the second is the base line-height.</p>
+                <p>We use those variables, and some math, to create the margins, paddings, and line-heights of all our type and more.</p>
+              </div>
+              <div class="span4">
+                <h3>Example body text</h3>
+                <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec sed odio dui.</p>
+              </div>
+              <div class="span4">
+                <div class="well">
+                  <h1>h1. Heading 1</h1>
+                  <h2>h2. Heading 2</h2>
+                  <h3>h3. Heading 3</h3>
+                  <h4>h4. Heading 4</h4>
+                  <h5>h5. Heading 5</h5>
+                  <h6>h6. Heading 6</h6>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-search pull-left" action="">
+          <input type="text" class="search-query span2" placeholder="Search">
+        </form>
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <a href="#">Login</a>
+            <div class="span3">
+                <label>Label name</label>
+                <input type="text" class="span3" placeholder="Type something...">
+                <label class="checkbox">
+                  <input type="checkbox"> Check me out
+                </label>
+                <button type="submit" class="btn">Submit</button>
+            </div>
+          </li>
+          <li class="vertical-divider"></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div><!-- /navbar-inner -->
+  </div>
+  <div class="row">
+    <div class="span3">
+      <h3>Expanding</h3>
+      <p>Same example, but with <code>&lt;i&gt;</code> tags for icons.</p>
+      <div class="well" style="padding: 8px 0;">
+        <ul class="nav list">
+          <li class="nav-header">List header</li>
+          <li class="active"><a href="#"><i class="home"></i> Home</a></li>
+          <li class="expanding">
+					  <a data-toggle="expanding" href="#"><i class="book"></i> Library</a>
+					  <ul>
+              <li><a href="#"><i class="book"></i> Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+					  </ul>
+					</li>
+          <li class="sliding">
+            <a href="#" data-toggle="sliding">Slide out <i class="chevron-right"></i></a>
+            <ul class="span6">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li><a href="#"><i class="pencil"></i> Applications</a></li>
+          <li class="nav-header">Another list header</li>
+          <li><a href="#"><i class="user"></i> Profile</a></li>
+          <li><a href="#"><i class="cog"></i> Settings</a></li>
+          <li><a href="#"><i class="flag"></i> Help</a></li>
+        </ul>
+      </div> <!-- /well -->
+    </div>
+  </div>
+</section>
+
+      <!-- Footer
+      ================================================== -->
+      <footer class="footer">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>Designed and built with all the love in the world <a href="http://twitter.com/twitter" target="_blank">@twitter</a> by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+        <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        <p>Icons from <a href="http://glyphicons.com">Glyphicons Free</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+      </footer>
+    </div><!-- /container -->
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="../js/bootstrap-transition.js"></script>
+    <script src="../js/bootstrap-dropdown.js"></script>
+    <script src="../js/bootstrap-toggle.js"></script>
+    <script src="../js/bootstrap-tab.js"></script>
+    <script src="../js/bootstrap-scrollspy.js"></script>
+    <script src="../js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/application.js"></script>
+  </body>
+</html>

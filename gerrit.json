@@ -1,0 +1,13 @@
+{
+	"TYPO3.Flow": {
+		"[WIP][FEATURE] Improve resolving of view": "16392"
+	},
+	"TYPO3.TypoScript": {
+		"[FEATURE] Refactored the inclusion of TypoScriptPathPattern to support multiple paths": "16394",
+		"[FEATURE] Allow Processors to be unset": "17551"
+	},
+	"TYPO3.Fluid": {
+		"[FEATURE] Add various Setters to override Paths and Patterns": "16393",
+		"[FEATURE] Allow f:link.action to operate on parent request": "18045"
+	}
+}

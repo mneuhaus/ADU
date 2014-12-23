@@ -1,0 +1,1 @@
+$("[data-canvas-toggle]").click(function(){$(".off-canvas").toggleClass("off-canvas-active");return!1});$("[role='main']").click(function(){$(".off-canvas").removeClass("off-canvas-active")});

@@ -1,0 +1,47 @@
+.nav.list ul li {
+  display: block;
+  padding: 3px 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.nav li.expanding ul {
+  display: none;
+}
+.nav li.expanding.on ul {
+  display: block;
+}
+.nav li.sliding {
+  float: left;
+  position: relative;
+  width: 100%;
+}
+.nav li.sliding ul {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  z-index: 9999;
+  margin-top: 1px;
+}
+.nav li.sliding ul li {
+  width: 100%;
+}
+.nav li.sliding.on ul {
+  display: block;
+}
+.nav .dropdown  > div {
+  position: absolute;
+  display: none;
+  background: #fff;
+}
+.nav .dropdown  > div.span12 {
+  left: 0;
+}
+.nav .dropdown.on > div {
+  display: block;
+}
+.nav.pull-right .dropdown > div {
+  left: auto;
+  right: 0;
+}

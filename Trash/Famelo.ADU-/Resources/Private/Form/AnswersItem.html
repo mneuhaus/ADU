@@ -1,0 +1,14 @@
+{namespace form=TYPO3\Form\ViewHelpers}
+<div class="adu-answer">
+	<div class="media">
+		<div class="adu-question media-body">
+			<div class="question">
+				<form:renderRenderable renderable="{inline.elements.question}" />
+			</div>
+			<form:renderRenderable renderable="{inline.elements.answer}" />
+			<div class="comment">
+				<form:renderRenderable renderable="{inline.elements.comment}" />
+			</div>
+		</div>
+	</div>
+</div>

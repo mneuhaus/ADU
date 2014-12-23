@@ -1,0 +1,19 @@
+<f:if condition="{rating.color}">
+	<f:then>
+		<span class="evaluation badge-{rating.color}"
+			rel="popover"
+			data-title="KW{rating.date -> f:format.date(format: 'W')}"
+			data-content="
+			<p>
+				<dl>
+					<dt>Kommentar: </dt><dd>{rating.comment}</dd>
+					<dt>Maßnahme: </dt><dd>{rating.action}</dd>
+					<dt>Datum: </dt> <dd>{rating.date -> f:format.date(format: 'd.m.Y')}</dd>
+				</dl>
+			</p>"
+		>{customer.marker}</span>
+	</f:then>
+	<f:else>
+		<span class="evaluation badge-{rating.color}">{customer.marker}</span>
+	</f:else>
+</f:if>

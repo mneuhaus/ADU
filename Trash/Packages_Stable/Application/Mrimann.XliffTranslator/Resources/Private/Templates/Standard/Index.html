@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Welcome Dear Translator!</f:section>
+
+<f:section name="Content">
+	<p>Please choose package to translate:</p>
+	<ul>
+
+		<f:for each="{packages}" as="package">
+			<li>
+				<f:link.action action="translate" arguments="{packageKey: package.packageKey}">
+					{package.packageKey}
+				</f:link.action>
+			</li>
+		</f:for>
+
+	</ul>
+</f:section>

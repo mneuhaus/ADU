@@ -1,0 +1,16 @@
+prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Answer) < prototype(TYPO3.Expose:Schema) {
+	properties {
+		question.element = 'Famelo.ADU:HiddenQuestion'
+		answer {
+			element = 'Famelo.ADU:Rating'
+		}
+		comment {
+			label = 'Anmerkung'
+			element = 'Famelo.ADU:SingleLineTextFull'
+		}
+		note {
+			label = 'Notiz vom Kundenberater'
+			element = 'Famelo.ADU:SingleLineTextFull'
+		}
+	}
+}

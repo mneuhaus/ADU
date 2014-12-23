@@ -1,0 +1,14 @@
+<f:comment>REVIEWED for release</f:comment>
+{namespace e=TYPO3\Expose\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<tr>
+	<td class="name">
+		<f:link.action action='customer' controller="Report" arguments="{customer: customer}" useParentRequest="1">{customer}</f:link.action>
+	</td>
+	<td class="consultant hidden-phone">{customer.consultant}</td>
+	<td class="branch hidden-phone">{customer.branch}</td>
+	<td>
+		<span class="quotient badge-{customer.currentSurveyColor}">{customer.currentSurveyColor}</span>
+	</td>
+</tr>

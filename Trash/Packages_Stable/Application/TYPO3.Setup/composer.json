@@ -1,0 +1,16 @@
+{
+    "name": "typo3/setup",
+    "type": "typo3-flow-package",
+    "description": "",
+    "version": "1.0.0",
+    "require": {
+        "typo3/flow": "*",
+        "typo3/form": "*",
+        "typo3/twitter-bootstrap": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "TYPO3\\Setup": "Classes"
+        }
+    }
+}
