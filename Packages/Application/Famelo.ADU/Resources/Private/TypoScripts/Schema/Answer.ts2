@@ -12,9 +12,5 @@ prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Answer) < prototype(TYPO3.
 			label = 'Notiz vom Kundenberater'
 			element = 'Famelo.ADU:SingleLineTextFull'
 		}
-		action {
-			label = 'Maßnahme und nächster Schritt'
-			element = 'Famelo.ADU:SingleLineTextFullRequired'
-		}
 	}
 }

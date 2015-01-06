@@ -48,11 +48,6 @@ class Answer {
 	 */
 	protected $note = '';
 
-	/**
-	 * @var string
-	 */
-	protected $action = '';
-
 	public function __toString() {
 		if (is_object($this->question)) {
 			return $this->question->getBody();
@@ -146,20 +141,6 @@ class Answer {
 		return $this->note;
 	}
 
-	/**
-	 * @param string $action
-	 */
-	public function setAction($action) {
-		$this->action = $action;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getAction() {
-		return $this->action;
-	}
-
 	public function getColor() {
 		$colors = array(
 			'green' => array(0, 0.25),
@@ -177,10 +158,6 @@ class Answer {
 
 	public function getImage() {
 		return 'img/Button-' . ucfirst($this->getColor()) . '.png';
-	}
-
-	public function getNeedsAction() {
-		return in_array($this->getColor(), array('orange', 'red'));
 	}
 }
 ?>

@@ -55,11 +55,6 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 	protected $propertySchema;
 
 	/**
-	 * @var string
-	 */
-	protected $object;
-
-	/**
 	 * Check if the this inline element handles a multiple relation
 	 *
 	 * @return boolean
@@ -137,20 +132,6 @@ class InlineFormElement extends \TYPO3\Form\FormElements\Section {
 
 	public function getPropertySchema() {
 		return $this->propertySchema;
-	}
-
-	/**
-	 * @param object $object
-	 */
-	public function setObject($object) {
-		$this->object = $object;
-	}
-
-	/**
-	 * @return object
-	 */
-	public function getObject() {
-		return $this->object;
 	}
 
 	/**
