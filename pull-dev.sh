@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rsync -avz --exclude='.DS_Store' --exclude='Data' -e ssh p182917@p182917.mittwaldserver.info:/html/dev/ ./
+rsync -avz --exclude='.DS_Store' --exclude='Data' --exclude='.git' -e ssh p182917@p182917.mittwaldserver.info:/html/dev/ ./
