@@ -66,6 +66,22 @@ class Survey {
 	 */
 	protected $moreService = FALSE;
 
+	/**
+	 * The securityContext
+	 *
+	 * @var \TYPO3\Flow\Security\Context
+	 * @Flow\Inject
+	 * @Flow\Transient
+	 */
+	protected $securityContext;
+
+	/**
+	 * @Flow\Inject
+	 * @Flow\Transient
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 */
+	protected $configurationManager;
+
 	public function __construct() {
 		$this->created = new \DateTime();
 		$this->answers = new \Doctrine\Common\Collections\ArrayCollection();
@@ -73,6 +89,10 @@ class Survey {
 
 	public function __toString() {
 		return 'Befragung des Kunden' . $this->getCustomer() . ' vom ' . $this->getCreated()->format('d.m.Y');
+	}
+
+	public function getIdentifier() {
+		return $this->Persistence_Object_Identifier;
 	}
 
 	/**
@@ -241,5 +261,23 @@ class Survey {
 		}
 		return 'img/Button-' . ucfirst($color) . '.png';
 	}
+
+    public function preUpdate() {
+		if (in_array($this->getResultColor(), array('orange', 'red'))) {
+			$mail = new \Famelo\Messaging\Message();
+			$mail
+				->setFrom(array('no-reply@adu-kundenzufriedenheit.de' => 'ADU Kundenzufriedenheit'))
+				->setSubject('Der Kundenberater hat aktionen für den Kunden ' . $this->getCustomer()->getName() . ' vorgeschlagen')
+				->setMessage('Famelo.ADU:UpdatedProblematicSurvey')
+				->assign('consultant', $this->securityContext->getParty())
+				->assign('survey', $this);
+
+			$settings = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'Famelo.ADU');
+			foreach ($settings['MailRecipients']['NewProblematicSurvey'] as $recipient) {
+				$mail->setTo(array($recipient));
+				$mail->send();
+			}
+		}
+    }
 }
 ?>

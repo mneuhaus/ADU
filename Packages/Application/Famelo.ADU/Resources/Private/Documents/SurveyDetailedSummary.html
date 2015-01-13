@@ -33,7 +33,21 @@
 		<tr>
 			<td>{answer.question}</td>
 			<td><img src="{f:uri.resource(path: answer.image, package: 'Famelo.ADU')}" /></td>
-			<td>{answer.comment}</td>
+			<td>
+				{answer.comment}
+				<f:if condition="{answer.note}">
+					<p style="margin-top: 30px;display: block;">
+						<strong>Notiz:</strong><br />
+						{answer.note}
+					</p>
+				</f:if>
+				<f:if condition="{answer.action}">
+					<p style="margin-top: 30px">
+						<strong>Maßenahme:</strong><br />
+						{answer.action}
+					</p>
+				</f:if>
+ 			</td>
 		</tr>
 	</f:for>
 	</table>

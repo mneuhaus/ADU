@@ -268,6 +268,22 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$this->persistenceManager->add($survey);
 		}
 
+		if (in_array($survey->getResultColor(), array('orange', 'red'))) {
+			$mail = new \Famelo\Messaging\Message();
+			$mail
+				->setFrom(array('no-reply@adu-kundenzufriedenheit.de' => 'ADU Kundenzufriedenheit'))
+				->setSubject('Der Kunde ' . $survey->getCustomer()->getName() . ' ist laut einer Befragung unzufrieden')
+				->setMessage('Famelo.ADU:NewProblematicSurvey')
+				->assign('consultant', $this->securityContext->getParty())
+				->assign('survey', $survey);
+
+
+			foreach ($this->settings['MailRecipients']['NewProblematicSurvey'] as $recipient) {
+				$mail->setTo(array($recipient));
+				$mail->send();
+			}
+		}
+
 		if ($survey->getMoreSecurity() || $survey->getMoreService()) {
 			$mail = new \Famelo\Messaging\Message();
 			$mail

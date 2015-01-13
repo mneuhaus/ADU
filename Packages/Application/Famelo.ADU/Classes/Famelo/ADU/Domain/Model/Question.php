@@ -38,6 +38,10 @@ class Question {
 		return $this->getBody();
 	}
 
+	public function getIdentifier() {
+		return $this->Persistence_Object_Identifier;
+	}
+
 	/**
 	 * Get the Question's body
 	 *

@@ -3,7 +3,7 @@
 	<div class="media">
 		<div class="adu-question media-body">
 			<div class="question">
-				{inline.elements.question.defaultValue}
+				<form:renderRenderable renderable="{inline.elements.question}" />
 			</div>
 			<span class="evaluation badge-no{inline.elements.answer.defaultValue}" style="display: block; float: none; margin: 10px 0;">&nbsp;</span>
 			<f:if condition="{inline.elements.comment.defaultValue}">
@@ -20,6 +20,11 @@
 					<form:renderRenderable renderable="{inline.elements.action}" />
 				</div>
 			</f:if>
+
+			<form:renderRenderable renderable="{inline.elements.__identity}" />
+			<f:form.hidden property="{inline.elements.answer.identifier}" id="{inline.elements.answer.uniqueIdentifier}" />
+			<f:form.hidden property="{inline.elements.comment.identifier}" id="{inline.elements.comment.uniqueIdentifier}" />
+			<f:form.hidden property="{inline.elements.survey.identifier}" id="{inline.elements.survey.uniqueIdentifier}" />
 		</div>
 	</div>
 </div>

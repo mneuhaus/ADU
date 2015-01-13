@@ -49,6 +49,9 @@ class EditController extends AbstractController {
 		$objects = $this->request->getInternalArgument('__objects');
 		foreach ($objects as $object) {
 			if (!$this->persistenceManager->isNewObject($object)) {
+				if (method_exists($object, 'preUpdate')) {
+					$object->preUpdate();
+				}
 				$this->persistenceManager->update($object);
 			}
 		}

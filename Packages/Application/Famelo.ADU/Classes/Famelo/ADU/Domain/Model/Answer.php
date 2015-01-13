@@ -61,6 +61,10 @@ class Answer {
 		}
 	}
 
+	public function getIdentifier() {
+		return $this->Persistence_Object_Identifier;
+	}
+
 	/**
 	 * Get the Answer's question
 	 *
