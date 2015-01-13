@@ -1,9 +1,0 @@
-{
-  "name": "prettycheckable",
-  "version": "0.0.0",
-  "commit": "626c5c97b635d0d9db68fe2e2a53b4bb0b1d3a48",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/arthurgouveia/prettyCheckable.git"
-  }
-}

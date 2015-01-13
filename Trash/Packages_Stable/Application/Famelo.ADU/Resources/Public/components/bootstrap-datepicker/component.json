@@ -1,9 +1,0 @@
-{
-  "name": "bootstrap-datepicker",
-  "version": "0.0.0",
-  "commit": "12af14856cfdfb16a20cb7c4947d764a493ca722",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/eternicode/bootstrap-datepicker.git"
-  }
-}
