@@ -106,8 +106,8 @@ class ReportController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
         $filtered=false;
         $document->assign('customers', $this->customerRepository->findUnsatisfied($search, $customerObj, $consultantObj, $branchObj, $sort, $cycle, $filtered));
-		
-		$document->download('ADU Bericht ' . date('d.m.Y') . '.pdf');
+
+		$document->send('ADU Bericht ' . date('d.m.Y') . '.pdf');
 	}
 
 	/**

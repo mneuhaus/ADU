@@ -40,16 +40,41 @@
     <br />
 
     <f:if condition="{showComments}">
-    <h4>Kommentare / Maßnahmen</h4>
-    <f:for each='{customer.latestSurvey.answers}' as='answer'>
-        <f:if condition="{answer.comment}">
-            <dt>{answer.question}: </dt>
-            <dd style='margin-bottom: 10px;'>
-                {answer.comment}<br />
-                <b>{answer.note}</b>
-            </dd>
-        </f:if>
-    </f:for>
+	    <h4>Kommentare / Maßnahmen</h4>
+	    <f:for each='{customer.latestSurvey.answers}' as='answer'>
+	        <f:if condition="{answer.comment}">
+	            <dt>{answer.question}: </dt>
+	            <dd style='margin-bottom: 10px;'>
+	                {answer.comment}<br />
+	                <b>{answer.note}</b>
+	            </dd>
+	        </f:if>
+	    </f:for>
+
+	    <f:if condition="{cycle} == 'currentYear'">
+	        <f:for each="{customer.ratingForThisYear}" as="rating">
+		        <f:if condition="{rating.comment}">
+		            <dt><f:format.date format="d.m.Y">{rating.created}</f:format.date>: </dt>
+		            <dd style='margin-bottom: 10px;'>
+		                {rating.action}<br />
+		                <b>{rating.comment}</b>
+		            </dd>
+		        </f:if>
+	        </f:for>
+	    </f:if>
+
+	    <f:if condition="{cycle} == 'lastYear'">
+	        <f:for each="{customer.ratingForLastYear}" as="rating">
+
+	        </f:for>
+	    </f:if>
+
+	    <f:if condition="{cycle} == '-2years'">
+	        <f:for each="{customer.ratingFor2LastYears}" as="rating">
+
+	        </f:for>
+	    </f:if>
+
     </f:if>
 
     <hr />

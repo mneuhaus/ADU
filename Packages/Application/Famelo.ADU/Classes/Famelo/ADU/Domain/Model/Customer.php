@@ -432,7 +432,7 @@ class Customer {
 	}
 
 	public function calculateSelfEvaluationResult() {
-				
+
 		$rating = $this->getLatestRating();
 		$level = 1;
 
@@ -466,7 +466,7 @@ class Customer {
 			if     ($this->getIsNew())    $rating->setLevel(6);
 			elseif ($this->getIsTender()) $rating->setLevel(5);
 			else                          $rating->setLevel(4);
-			
+
 			return $rating;
 		}
 		if ($this->ratings->count() > 0) {
@@ -558,7 +558,29 @@ class Customer {
         return $ratingsYear;
     }
 
+    public function getRatingForThisYear() {
+        $ratingsYear = array();
+        for($w=1;$w<=52;$w++) {
+            $ratingsYear[] = $this->getRatingForWeekAndYear($w,date('Y'));
+        }
+        return $ratingsYear;
+    }
 
+    public function getRatingForLastYear() {
+        $ratingsYear = array();
+        for($w=1;$w<=52;$w++) {
+            $ratingsYear[] = $this->getRatingForWeekAndYear($w,(int)date('Y')-1);
+        }
+        return $ratingsYear;
+    }
+
+    public function getRatingFor2LastYears() {
+        $ratingsYear = array();
+        for($w=1;$w<=52;$w++) {
+            $ratingsYear[] = $this->getRatingForWeekAndYear($w,(int)date('Y')-2);
+        }
+        return $ratingsYear;
+    }
 
     /**
      * @param integer $week
@@ -786,12 +808,12 @@ class Customer {
 	 */
 	public function getIsTender() {
 		return ($this->getType() === 'A');
-		
+
 		/*
-		if ($this->getTender() !== NULL) {						
+		if ($this->getTender() !== NULL) {
 			$now = new \DateTime();
 			return ($this->getTender() >= $now);
-						
+
 		} else {
 			return false;
 		}
@@ -828,9 +850,9 @@ class Customer {
 	}
 
 	public function getMarker() {
-		if ($this->getType() !== '') { 
+		if ($this->getType() !== '') {
 			return $this->getType();
-		} 
+		}
 		return FALSE;
 
 /*
@@ -855,7 +877,7 @@ class Customer {
 			elseif ($this->getIsTender()) $p = 1.6;
 			elseif ($this->getIsTerminated()) $p = 1.8;
 			else $p=1;
-			
+
 			$values[] = $this->getSelfEvaluationResult() / $p;
 		}
 		$survey = $this->getLatestSurvey();
