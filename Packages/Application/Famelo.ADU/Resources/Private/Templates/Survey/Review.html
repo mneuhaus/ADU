@@ -33,7 +33,7 @@
 
         <div class="filter-bar">
 
-            <f:form action="generateSelfEvaluation" controller="Survey" object="customer">
+            <f:form action="reviewPdf" controller="Survey" object="customer" arguments="{cycle: cycle}">
 
                 <div class="filter">
                     <label>Kundenberater</label>
@@ -50,7 +50,8 @@
 
                 <div class="filter">
                     <label>Export</label>
-                    <f:link.action action="reviewPdf" class="btn" arguments="{cycle: cycle}" target="_blank">PDF Generieren</f:link.action>
+                    <!-- <f:link.action action="reviewPdf" class="btn" arguments="{cycle: cycle}" target="_blank">PDF Generieren</f:link.action> -->
+                    <f:form.submit name="submit" class="btn" value="PDF Generieren" />
                 </div>
 
             </f:form>

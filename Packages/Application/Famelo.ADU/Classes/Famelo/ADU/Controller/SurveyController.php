@@ -31,6 +31,14 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected $customerRepository;
 
 	/**
+	 * The customerRepository
+	 *
+	 * @var \Famelo\ADU\Domain\Repository\UserRepository
+	 * @Flow\Inject
+	 */
+	protected $userRepository;
+
+	/**
 	 * The branchRepository
 	 *
 	 * @var \Famelo\ADU\Domain\Repository\BranchRepository
@@ -104,9 +112,11 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      * Review action
      *
      * @param string $cycle
+     * @param string $consultant
+     * @param string $branch
      * @return void
      */
-    public function reviewPdfAction($cycle='currentYearPart1') {
+    public function reviewPdfAction($cycle='currentYearPart1', $consultant = NULL, $branch = NULL) {
 
         switch ($cycle) {
             case 'currentYearPart1':
@@ -144,7 +154,19 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 
         $query = $this->customerRepository->createQuery();
-        // $query->setLimit('20');
+        $constraints = array($query->getConstraint());
+        if (!empty($consultant)) {
+        	$consultant = $this->userRepository->findOneByUsername($consultant);
+        	$constraints[] = $query->equals('consultant', $consultant);
+        }
+        if (!empty($branch)) {
+        	$branch = $this->branchRepository->findOneByName($branch);
+        	$constraints[] = $query->equals('branch', $branch);
+        }
+
+        if (count($constraints) > 0) {
+        	$query->matching($query->logicalAnd($constraints));
+        }
 
         $document = new \Famelo\PDF\Document('Famelo.ADU:Review');
 
@@ -155,7 +177,7 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $document->assign('year', $year);
         $document->assign('cycle', $cycle);
 
-		$document->send('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
+		$document->download('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
 
     }
 
