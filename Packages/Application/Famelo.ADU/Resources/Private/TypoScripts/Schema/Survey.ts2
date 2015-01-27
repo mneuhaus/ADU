@@ -5,7 +5,12 @@ prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Survey) < prototype(TYPO3.
 		created {
 			ignore = true
 		}
+
 		securityContext {
+			ignore = true
+		}
+
+		configurationManager {
 			ignore = true
 		}
 
