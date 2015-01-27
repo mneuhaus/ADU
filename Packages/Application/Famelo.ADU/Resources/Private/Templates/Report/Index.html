@@ -5,9 +5,9 @@
 {namespace c=Community\CacheExtensions\ViewHelpers}
 
 <f:section name="content">
-	
+
 	<c:cache classes="\Famelo\ADU\Domain\Model\Customer" identifier="Reporting"></c:cache>
-		
+
 		<!--
 		<div class="pull-right" style="margin-bottom: 20px; overflow: hidden;">
 				PDF Generieren
@@ -335,8 +335,8 @@
 								</f:else>
 							</f:if>
 							</span>
-							
-							
+
+
 						</td>
 						<td class="comments">
 							<f:if condition="{customer.ratingForThisWeek.comment}">
@@ -386,62 +386,70 @@
 
 		// function: filter list
 		function filterList() {
-
 			// sort list
 			var sortcolumn = $('#filter-sorting').val();
 			if (sortcolumn == "sorting") {
-				featureList.sort("sorting"); 
-			} else {		
+				featureList.sort("sorting");
+			} else {
 				featureList.sort(sortcolumn,{ asc: "true" }); // e.g.: "sorting"
 			}
-			
+
 			// filter cycle
 			var cycle = $('#filter-cycle').val();
 			if (cycle == "3w") {
-				$(".ratings6w").hide();			
-				$(".ratings9w").hide();						
+				$(".ratings6w").hide();
+				$(".ratings9w").hide();
 			} else if (cycle == "6w") {
-				$(".ratings6w").show();			
-				$(".ratings9w").hide();						
+				$(".ratings6w").show();
+				$(".ratings9w").hide();
 			} else if (cycle == "9w") {
-				$(".ratings6w").show();			
-				$(".ratings9w").show();					
+				$(".ratings6w").show();
+				$(".ratings9w").show();
 			}
-
 
 			// filter consultant and branch
 			featureList.filter(function(item) {
 				var filterConsultant = false;
-                var filterCustomer   = false;
+        var filterCustomer   = false;
 				var filterBranch     = false;
 
-				if ($('#filter-consultant').val() == "" || item.values().consultant == $('#filter-consultant option:selected').text())  filterConsultant = true; // important: jquery .text() at this place!
-                if ($('#filter-customer').val()   == "" || item.values().identity ==( $('#filter-customer').val() ) ) filterCustomer = true;
-				if ($('#filter-branch').val()     == "" || item.values().branch     == $('#filter-branch').val())     filterBranch = true;
-        
-				return (filterConsultant && filterCustomer && filterBranch);
+				if ($('#filter-consultant').val() == ""
+						|| item.values().consultant == $('#filter-consultant option:selected').text()) {
+					filterConsultant = true; // important: jquery .text() at this place!
+				}
 
+        if ($('#filter-customer').val()   == ""
+        	  || item.values().identity ==( $('#filter-customer').val() ) ) {
+        	filterCustomer = true;
+        }
+
+				if ($('#filter-branch').val()     == ""
+					  || item.values().branch     == $('#filter-branch').val()) {
+					filterBranch = true;
+				}
+
+				return (filterConsultant && filterCustomer && filterBranch);
 			});
 		}
 
 
-		$('#filter-consultant').click(function() {
+		$('#filter-consultant').change(function() {
 			filterList();
 		});
 
-        $('#filter-customer').click(function() {
-            filterList();
-        });
+    $('#filter-customer').change(function() {
+        filterList();
+    });
 
-        $('#filter-branch').click(function() {
+    $('#filter-branch').change(function() {
 			filterList();
 		});
 
-		$('#filter-sorting').click(function() {
+		$('#filter-sorting').change(function() {
 			filterList();
 		});
 
-		$('#filter-cycle').click(function() {
+		$('#filter-cycle').change(function() {
 			filterList();
 		});
 
