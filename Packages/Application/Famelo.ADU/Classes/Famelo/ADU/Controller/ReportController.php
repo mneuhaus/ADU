@@ -105,9 +105,19 @@ class ReportController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $document->assign('showComments', $showComments);
 
         $filtered=false;
-        $document->assign('customers', $this->customerRepository->findUnsatisfied($search, $customerObj, $consultantObj, $branchObj, $sort, $cycle, $filtered));
+        $objects = $this->customerRepository->findUnsatisfied($search, $customerObj, $consultantObj, $branchObj, $sort, $cycle, $filtered);
+        $customers = array();
+        foreach ($objects as $object) {
+        	if (isset($customers[$object->getName()])) {
+        		continue;
+        	}
+        	$customers[$object->getName()] = $object;
+        }
+        $document->assign('objects', $objects);
+        $document->assign('customers', $customers);
 
-		$document->download('ADU Bericht ' . date('d.m.Y') . '.pdf');
+		echo $document->render('ADU Bericht ' . date('d.m.Y') . '.pdf');
+		exit();
 	}
 
 	/**

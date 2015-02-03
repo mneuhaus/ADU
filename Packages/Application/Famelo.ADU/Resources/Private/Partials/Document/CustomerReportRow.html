@@ -1,0 +1,35 @@
+<tr>
+  <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+    <b>{customer.name}</b>
+    <f:if condition="{customer.object}">
+    <br />{customer.object}
+    </f:if>
+  </td>
+  <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+  	{customer.category}
+  </td>
+  <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px; text-align:center;">
+  	<img src="{f:uri.resource(path: customer.ratingImageForThisWeek, package: 'Famelo.ADU')}" />
+  	<img src="{f:uri.resource(path: customer.ratingImageForLastWeek, package: 'Famelo.ADU')}" />
+  	<img src="{f:uri.resource(path: customer.ratingImageForTwoWeeksAgo, package: 'Famelo.ADU')}" />
+  	<f:if condition="{cycle} == '6w'">
+  		<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+  	</f:if>
+  	<f:if condition="{cycle} == '9w'">
+  		<img src="{f:uri.resource(path: customer.ratingImageForThreeWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForFourWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForFiveWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForSixWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForSevenWeeksAgo, package: 'Famelo.ADU')}" />
+  		<img src="{f:uri.resource(path: customer.ratingImageForEightWeeksAgo, package: 'Famelo.ADU')}" />
+  	</f:if>
+
+    <td style="border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+        <f:if condition="{customer.isNew}">Neukunde</f:if>
+        <f:if condition="{customer.isTender}">Ausgeschrieben bis zum {customer.tender -> f:format.date(format: 'd.m.Y')}</f:if>
+		<f:if condition="{customer.isTerminated}">Gekündigt zum {customer.termination -> f:format.date(format: 'd.m.Y')}</f:if>
+    </td>
+  </td>
+</tr>

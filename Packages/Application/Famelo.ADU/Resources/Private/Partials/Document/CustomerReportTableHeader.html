@@ -1,0 +1,23 @@
+{namespace a=Famelo\ADU\ViewHelpers}
+<thead>
+	<tr>
+	  <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;width: 40%;">Kunde</th>
+	  <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	  	Kundenschlüssel
+	  </th>
+	  <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">
+	  	Einschätzung<br />
+	  	(
+	  	KW{a:calendarWeek(delta: 0)}/KW{a:calendarWeek(delta: '-1')}/KW{a:calendarWeek(delta: '-2')}
+	  	<f:if condition="{cycle} == '6w'">
+			/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+		</f:if>
+	  	<f:if condition="{cycle} == '9w'">
+			/KW{a:calendarWeek(delta: '-3')}/KW{a:calendarWeek(delta: '-4')}/KW{a:calendarWeek(delta: '-5')}
+			/KW{a:calendarWeek(delta: '-6')}/KW{a:calendarWeek(delta: '-7')}/KW{a:calendarWeek(delta: '-8')}
+		</f:if>
+	  	)
+	  </th>
+	  <th style="font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; padding: 4px 5px;">Status</th>
+	</tr>
+</thead>
