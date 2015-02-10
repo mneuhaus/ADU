@@ -90,11 +90,11 @@
 		<h3>Rot bewertete Kunden</h3>
 
 		<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
-		  <f:render partial="Document/CustomerReportTableHeader" />
+		  <f:render partial="Document/CustomerReportTableHeader" arguments="{cycle: cycle}"/>
 		  <tbody>
 		    <f:for each="{objects}" as="customer">
 				<f:if condition="{customer.currentRatingColor} == 'red'">
-			    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer}"/>
+			    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer, cycle: cycle}"/>
 		    	</f:if>
 		    </f:for>
 		  </tbody>
@@ -104,11 +104,11 @@
 		<h3>Orange bewertete Kunden</h3>
 
 		<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
-		  <f:render partial="Document/CustomerReportTableHeader" />
+		  <f:render partial="Document/CustomerReportTableHeader" arguments="{cycle: cycle}"/>
 		  <tbody>
 		    <f:for each="{objects}" as="customer">
 				<f:if condition="{customer.currentRatingColor} == 'orange'">
-				    <f:render partial="Document/CustomerReportRow" arguments="{customer: customer}"/>
+				    <f:render partial="Document/CustomerReportRow" arguments="{customer: customer, cycle: cycle}"/>
 			    </f:if>
 		    </f:for>
 		  </tbody>
@@ -118,11 +118,11 @@
 		<h3>Neukunden</h3>
 
 		<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
-			<f:render partial="Document/CustomerReportTableHeader" />
+			<f:render partial="Document/CustomerReportTableHeader" arguments="{cycle: cycle}"/>
 		  	<tbody>
 		    	<f:for each="{customers}" as="customer">
 					<f:if condition="{customer.isNew}">
-				    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer}"/>
+				    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer, cycle: cycle}"/>
 		    		</f:if>
 		    	</f:for>
 		  	</tbody>
@@ -132,11 +132,11 @@
 		<h3>Kunden in Ausschreibung</h3>
 
 		<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
-			<f:render partial="Document/CustomerReportTableHeader" />
+			<f:render partial="Document/CustomerReportTableHeader" arguments="{cycle: cycle}"/>
 			<tbody>
 		    	<f:for each="{customers}" as="customer">
 					<f:if condition="{customer.isTender}">
-						<f:render partial="Document/CustomerReportRow" arguments="{customer: customer}"/>
+						<f:render partial="Document/CustomerReportRow" arguments="{customer: customer, cycle: cycle}"/>
 		    		</f:if>
 		    	</f:for>
 		  	</tbody>
@@ -146,11 +146,11 @@
 		<h3>Gekündigte Kunden</h3>
 
 		<table style="border-right: 1px solid #DDD; border-bottom: 1px solid #DDD; border-spacing: 0;">
-			<f:render partial="Document/CustomerReportTableHeader" />
+			<f:render partial="Document/CustomerReportTableHeader" arguments="{cycle: cycle}"/>
 		  	<tbody>
 		    	<f:for each="{customers}" as="customer">
 					<f:if condition="{customer.isTerminated}">
-				    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer}"/>
+				    	<f:render partial="Document/CustomerReportRow" arguments="{customer: customer, cycle: cycle}"/>
 		    		</f:if>
 		    	</f:for>
 		  	</tbody>
