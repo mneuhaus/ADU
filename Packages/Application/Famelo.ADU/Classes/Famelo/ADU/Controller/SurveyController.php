@@ -6,6 +6,7 @@ namespace Famelo\ADU\Controller;
  *                                                                        *
  *                                                                        */
 
+use Famelo\ADU\Domain\Dto\CustomerSurveyYear;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
@@ -57,104 +58,73 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
     /**
      * Review action
      *
-     * @param string $cycle
+     * @param string $year
      * @return void
      */
-    public function reviewAction($cycle='currentYearPart1') {
-
-        switch ($cycle) {
-            case 'currentYearPart1':
-            case 'lastYearPart1':
-            case 'last2YearsPart1':
-                $startWeek = 1;$endWeek = 13;
-                break;
-
-            case 'currentYearPart2':
-            case 'lastYearPart2':
-            case 'last2YearsPart2':
-                $startWeek = 14;$endWeek = 26;
-                break;
-
-            case 'currentYearPart3':
-            case 'lastYearPart3':
-            case 'last2YearsPart3':
-                $startWeek = 27;$endWeek = 39;
-                break;
-
-            case 'currentYearPart4':
-            case 'lastYearPart4':
-            case 'last2YearsPart4':
-                $startWeek = 40;$endWeek = 52;
-                break;
-
-            default:
-                $startWeek = 1;$endWeek = 13;
-        }
-
-        if (strpos($cycle,'currentYear')!==false) $year = 'current';
-        else if (strpos($cycle,'lastYear')!==false) $year = 'last';
-        else if (strpos($cycle,'last2Years')!==false) $year = 'last2';
-        else $year='current';
-
-
+    public function reviewAction($year = NULL) {
         $query = $this->customerRepository->createQuery();
-        // $query->setLimit('20');
-        $this->view->assign('reportService', new \Famelo\ADU\Services\ReportService());
-        $this->view->assign('customers', $query->execute());
-        $this->view->assign('startWeek', $startWeek);
-        $this->view->assign('endWeek', $endWeek);
-        $this->view->assign('year', $year);
-        $this->view->assign('cycle', $cycle);
+        $this->initializeViewVariables($query, $this->view, $year);
+		$this->view->assign('months', $this->getMonths());
+		$this->view->assign('years', $this->getYears());
+		$this->view->assign('currentYear', $year);
+
+        // switch ($cycle) {
+        //     case 'currentYearPart1':
+        //     case 'lastYearPart1':
+        //     case 'last2YearsPart1':
+        //         $startWeek = 1; $endWeek = 13;
+        //         break;
+
+        //     case 'currentYearPart2':
+        //     case 'lastYearPart2':
+        //     case 'last2YearsPart2':
+        //         $startWeek = 14; $endWeek = 26;
+        //         break;
+
+        //     case 'currentYearPart3':
+        //     case 'lastYearPart3':
+        //     case 'last2YearsPart3':
+        //         $startWeek = 27; $endWeek = 39;
+        //         break;
+
+        //     case 'currentYearPart4':
+        //     case 'lastYearPart4':
+        //     case 'last2YearsPart4':
+        //         $startWeek = 40; $endWeek = 52;
+        //         break;
+
+        //     default:
+        //         $startWeek = 1; $endWeek = 13;
+        // }
+
+        // if (strpos($cycle,'currentYear')!==false) $year = 'current';
+        // else if (strpos($cycle,'lastYear')!==false) $year = 'last';
+        // else if (strpos($cycle,'last2Years')!==false) $year = 'last2';
+        // else $year='current';
+
+
+        // $query = $this->customerRepository->createQuery();
+        // // $query->setLimit('20');
+        // $this->view->assign('reportService', new \Famelo\ADU\Services\ReportService());
+        // $this->view->assign('customers', $query->execute());
+        // $this->view->assign('startWeek', $startWeek);
+        // $this->view->assign('endWeek', $endWeek);
+        // $this->view->assign('year', $year);
+        // $this->view->assign('cycle', $cycle);
 
     }
 
     /**
      * Review action
      *
-     * @param string $cycle
+     * @param string $year
      * @param string $consultant
      * @param string $branch
      * @return void
      */
-    public function reviewPdfAction($cycle='currentYearPart1', $consultant = NULL, $branch = NULL) {
-
-        switch ($cycle) {
-            case 'currentYearPart1':
-            case 'lastYearPart1':
-            case 'last2YearsPart1':
-                $startWeek = 1;$endWeek = 13;
-                break;
-
-            case 'currentYearPart2':
-            case 'lastYearPart2':
-            case 'last2YearsPart2':
-                $startWeek = 14;$endWeek = 26;
-                break;
-
-            case 'currentYearPart3':
-            case 'lastYearPart3':
-            case 'last2YearsPart3':
-                $startWeek = 27;$endWeek = 39;
-                break;
-
-            case 'currentYearPart4':
-            case 'lastYearPart4':
-            case 'last2YearsPart4':
-                $startWeek = 40;$endWeek = 52;
-                break;
-
-            default:
-                $startWeek = 1;$endWeek = 13;
-        }
-
-        if (strpos($cycle,'currentYear')!==false) $year = 'current';
-        else if (strpos($cycle,'lastYear')!==false) $year = 'last';
-        else if (strpos($cycle,'last2Years')!==false) $year = 'last2';
-        else $year='current';
-
-
+    public function reviewPdfAction($year = NULL, $consultant = NULL, $branch = NULL) {
         $query = $this->customerRepository->createQuery();
-        $constraints = array($query->getConstraint());
+		$constraints = array($query->getConstraint());
         if (!empty($consultant)) {
         	$consultant = $this->userRepository->findOneByUsername($consultant);
         	$constraints[] = $query->equals('consultant', $consultant);
@@ -170,15 +140,49 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
         $document = new \Famelo\PDF\Document('Famelo.ADU:Review');
 
-        $document->assign('reportService', new \Famelo\ADU\Services\ReportService());
-        $document->assign('customers', $query->execute());
-        $document->assign('startWeek', $startWeek);
-        $document->assign('endWeek', $endWeek);
-        $document->assign('year', $year);
-        $document->assign('cycle', $cycle);
+        $this->initializeViewVariables($query, $document, $year);
+		$document->assign('months', $this->getMonths());
+		$document->assign('years', $this->getYears());
+		$document->assign('currentYear', $year);
 
-		$document->download('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
+		$document->send('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
+    }
 
+    public function getMonths() {
+		setlocale(LC_ALL, 'de_DE');
+        $months = array();
+		for ($i=1; $i <= 12; $i++) {
+			$months[] = strftime('%b', \DateTime::createFromFormat('m', $i)->getTimestamp());
+		}
+		return $months;
+    }
+
+    public function getYears() {
+    	$thisYear = date('Y');
+        $years = array(
+        	$thisYear => 'aktuelles Jahr (' . $thisYear . ')',
+        	($thisYear - 1) => 'letztes Jahr (' . ($thisYear - 1) . ')',
+        	($thisYear - 2) => 'vorletztes Jahr (' . ($thisYear - 2) . ')'
+        );
+        return $years;
+    }
+
+    public function initializeViewVariables($query, $view, $year) {
+    	$rows = array();
+        $branches = array('' => 'Alle');
+		$consultants = array('' => 'Alle');
+        foreach ($query->execute() as $customer) {
+        	$rows[] = new CustomerSurveyYear($customer, $year);
+        	if ($customer->getBranch() !== NULL) {
+        		$branches[$customer->getBranch()->getName()] = $customer->getBranch()->getName();
+        	}
+        	if ($customer->getConsultant() !== NULL) {
+        		$consultants[$customer->getConsultant()->getUsername()] = $customer->getConsultant()->__toString();
+        	}
+        }
+        $view->assign('rows', $rows);
+        $view->assign('branches', $branches);
+        $view->assign('consultants', $consultants);
     }
 
 	/**

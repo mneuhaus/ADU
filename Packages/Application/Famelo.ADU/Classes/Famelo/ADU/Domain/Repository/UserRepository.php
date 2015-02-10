@@ -48,6 +48,10 @@ class UserRepository extends \TYPO3\Flow\Persistence\Repository {
 
 	public function findOneByUsername($username) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'ADUProvider');
+		if (!is_object($account)) {
+			var_dump($account, $username);
+			return NULL;
+		}
 		return $account->getParty();
 	}
 
