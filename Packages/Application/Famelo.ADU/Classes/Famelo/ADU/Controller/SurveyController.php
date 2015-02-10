@@ -144,7 +144,7 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$document->assign('months', $this->getMonths());
 		$document->assign('years', $this->getYears());
 		$document->assign('currentYear', $year);
-		$document->send('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
+		$document->download('ADU Überprüfung ' . date('d.m.Y') . '.pdf');
     }
 
     public function getMonths() {
