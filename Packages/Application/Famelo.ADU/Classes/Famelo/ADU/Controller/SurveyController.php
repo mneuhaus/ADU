@@ -62,7 +62,7 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
      * @return void
      */
     public function reviewAction($year = NULL) {
-        $query = $this->customerRepository->createQuery();
+        $query = $this->customerRepository->createQuery(TRUE, TRUE);
         $this->initializeViewVariables($query, $this->view, $year);
 		$this->view->assign('months', $this->getMonths());
 		$this->view->assign('years', $this->getYears());

@@ -199,6 +199,9 @@ class Customer {
 	 * @return string The Customer's type
 	 */
 	public function getType() {
+		if (empty($this->type) && $this->getTermination() !== NULL) {
+			return 'K';
+		}
 		return $this->type;
 	}
 

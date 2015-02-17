@@ -28,22 +28,25 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 	 * @return \TYPO3\Flow\Persistence\QueryInterface
 	 * @api
 	 */
-	public function createQuery($filtered = TRUE) {
+	public function createQuery($filtered = TRUE, $ignoreTermination = FALSE) {
 		$query = parent::createQuery();
 		if ($filtered === TRUE) {
-			$threshold = new \DateTime('-30d');
-			$query->matching($query->logicalOr(
-				$query->greaterThan('termination', $threshold),
-				$query->equals('termination', NULL)
-			));
+			if ($ignoreTermination === FALSE) {
+				$threshold = new \DateTime();
+				$threshold->modify('-30 days');
+				$query->matching($query->logicalOr(
+					$query->greaterThan('termination', $threshold),
+					$query->equals('termination', NULL)
+				));
+			}
 			if (PHP_SAPI === 'cli') {
 				// Full Access
 			} elseif ($this->securityContext->hasRole('Administrator')) {
 				// Full Access
-				
+
 			} elseif ($this->securityContext->hasRole('Innendienst')) {
 				// Full Access
-				
+
 			} elseif ($this->securityContext->hasRole('Niederlassungsleiter')) {
 				$query->matching(
 					$query->logicalAnd(
@@ -75,7 +78,7 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 	 */
 	public function findUnsatisfied($search='', $customerObj=NULL, $consultantObj=NULL, $branchObj=NULL, $sort='', $cycle='', $filtered=true) {
 		$query = $this->createQuery($filtered);
-		
+
 		if ($sort=='sorting') {
 			$query->setOrderings(array(
 				'selfEvaluationResult' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
@@ -83,7 +86,7 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 		} else if ($sort=='name') {
 			$query->setOrderings(array(
 				'name' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING
-			));			
+			));
 		}
 
 		if ($branchObj != NULL) {
@@ -107,7 +110,7 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 
 		$customers = array();
 		$customersCollection = array();
-		
+
 		// sort it for pdf
 		foreach ($query->execute() as $customer) {
 			if ($customerObj === NULL || $customer->getIdentity() === $customerObj->getIdentity()) { // filter $customerObj
@@ -117,8 +120,8 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
             }
 		}
 		if ($sort=='sorting') arsort($customers);
-		
-		
+
+
 		$customersFinish = array();
 		foreach ($customers as $customerId => $ratingSum) {
 			$customer = $customersCollection[$customerId]; // set back customer object
@@ -137,7 +140,7 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
             }
 		}
 
-		
+
 		return $customersFinish;
 	}
 
