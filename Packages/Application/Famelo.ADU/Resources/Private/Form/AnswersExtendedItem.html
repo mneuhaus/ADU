@@ -1,25 +1,62 @@
 {namespace form=TYPO3\Form\ViewHelpers}
+{namespace a=Famelo\ADU\ViewHelpers}
 <div class="adu-answer">
 	<div class="media">
 		<div class="adu-question media-body">
 			<div class="question">
 				<form:renderRenderable renderable="{inline.elements.question}" />
 			</div>
-			<span class="evaluation badge-no{inline.elements.answer.defaultValue}" style="display: block; float: none; margin: 10px 0;">&nbsp;</span>
+
+    		<f:security.ifHasRole role="Niederlassungsleiter">
+    			<f:then>
+    				<form:renderRenderable renderable="{inline.elements.answer}" />
+    			</f:then>
+    			<f:else>
+    				<span class="evaluation badge-no{inline.elements.answer.defaultValue}" style="display: block; float: none; margin: 10px 0;">&nbsp;</span>
+    			</f:else>
+    		</f:security.ifHasRole>
+
 			<f:if condition="{inline.elements.comment.defaultValue}">
 			<div class="comment">
 				<b>Kommentar des Kunden:</b> {inline.elements.comment.defaultValue}
 			</div>
 			</f:if>
+
+    		<f:security.ifHasRole role="Niederlassungsleiter">
+				<f:then>
+	    			<div class="comment supervisor-comment" style="margin-top: 10px;">
+						<form:renderRenderable renderable="{inline.elements.supervisorComment}" />
+					</div>
+				</f:then>
+				<f:else>
+					<f:if condition="{inline.elements.supervisorComment.defaultValue}">
+						<div class="comment" style="margin-top: 10px;">
+							<b>Kommentar zur Bewertungsänderung:</b> {inline.elements.supervisorComment.defaultValue}
+						</div>
+					</f:if>
+				</f:else>
+    		</f:security.ifHasRole>
+
 			<div class="comment" style="margin-top: 10px;">
 				<form:renderRenderable renderable="{inline.elements.note}" />
 			</div>
 
-			<f:if condition="{inline.object.needsAction}">
-				<div class="comment" style="margin-top: 10px;">
-					<form:renderRenderable renderable="{inline.elements.action}" />
-				</div>
-			</f:if>
+			<f:security.ifHasRole role="Niederlassungsleiter">
+    			<f:then>
+    				<f:if condition="{inline.object.needsAction}">
+    					<div class="comment" style="margin-top: 10px;">
+							<b>Maßnahme:</b> {inline.elements.action.defaultValue}
+						</div>
+					</f:if>
+    			</f:then>
+    			<f:else>
+    				<f:if condition="{inline.object.needsAction}">
+						<div class="comment" style="margin-top: 10px;">
+							<form:renderRenderable renderable="{inline.elements.action}" />
+						</div>
+					</f:if>
+    			</f:else>
+    		</f:security.ifHasRole>
 
 			<form:renderRenderable renderable="{inline.elements.__identity}" />
 			<f:form.hidden property="{inline.elements.answer.identifier}" id="{inline.elements.answer.uniqueIdentifier}" />

@@ -48,7 +48,6 @@
   name: 'Edit Surveys'
   uriPattern: 'edit/survey'
   navigation: 'Befragungen'
-  feature: 'Befragungen'
   defaults:
     '@format': 'html'
     '@action':     'index'

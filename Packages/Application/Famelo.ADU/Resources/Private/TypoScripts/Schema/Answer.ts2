@@ -16,5 +16,9 @@ prototype(TYPO3.Expose:Schema:Famelo.ADU.Domain.Model.Answer) < prototype(TYPO3.
 			label = 'Maßnahme und nächster Schritt'
 			element = 'Famelo.ADU:SingleLineTextFullRequired'
 		}
+		supervisorComment{
+			label = 'Anmerkung vom Niederlassungsleiter/Administrator'
+			element = 'Famelo.ADU:SingleLineTextFull'
+		}
 	}
 }

@@ -49,6 +49,12 @@ class Answer {
 	protected $note = '';
 
 	/**
+	 * The supervisorComment
+	 * @var string
+	 */
+	protected $supervisorComment = '';
+
+	/**
 	 * @var string
 	 */
 	protected $action = '';
@@ -162,6 +168,20 @@ class Answer {
 	 */
 	public function getAction() {
 		return $this->action;
+	}
+
+	/**
+	 * @param string $supervisorComment
+	 */
+	public function setSupervisorComment($supervisorComment) {
+		$this->supervisorComment = $supervisorComment;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSupervisorComment() {
+		return $this->supervisorComment;
 	}
 
 	public function getColor() {

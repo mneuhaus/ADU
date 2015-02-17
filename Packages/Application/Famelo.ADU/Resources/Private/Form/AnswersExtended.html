@@ -5,4 +5,21 @@
 <f:for each="{inline.elements}" as="element">
 	<form:renderRenderable renderable="{element}" />
 </f:for>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.adu-question').each(function(){
+			var question = $(this);
+			var rating = question.find('.rating-input');
+			var initialValue = rating.val();
+			question.find('.prettyCheckable').change(function(){
+				if (initialValue !== $(this).val()) {
+					question.find('.supervisor-comment input').attr('required', 'required');
+				} else {
+					question.find('.supervisor-comment input').removeAttr('required');
+				}
+			});
+		});
+	});
+</script>
 </div>

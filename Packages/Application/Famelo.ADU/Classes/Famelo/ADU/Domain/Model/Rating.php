@@ -37,6 +37,12 @@ class Rating {
 	protected $comment = '';
 
 	/**
+	 * The supervisorComment
+	 * @var string
+	 */
+	protected $supervisorComment = '';
+
+	/**
 	 * The created
 	 * @var \DateTime
 	 */
@@ -173,13 +179,27 @@ class Rating {
 			'4' => 'red',
 			'5' => 'red',
 			'6' => 'red'
-			
+
 		);
 		return $colors[$this->getLevel()];
 	}
 
 	public function getImage() {
 		return 'img/Button-' . ucfirst($this->getColor()) . '.png';
+	}
+
+	/**
+	 * @param string $supervisorComment
+	 */
+	public function setSupervisorComment($supervisorComment) {
+		$this->supervisorComment = $supervisorComment;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSupervisorComment() {
+		return $this->supervisorComment;
 	}
 }
 
