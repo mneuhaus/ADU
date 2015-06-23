@@ -76,8 +76,8 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 	 * @param string $cycle (INTEGRATED)
      * @param boolean $filtered
 	 */
-	public function findUnsatisfied($search='', $customerObj=NULL, $consultantObj=NULL, $branchObj=NULL, $sort='', $cycle='', $filtered=true) {
-		$query = $this->createQuery($filtered);
+	public function findUnsatisfied($search='', $customerObj=NULL, $consultantObj=NULL, $branchObj=NULL, $sort='', $cycle='', $filtered=true, $roleFiltered=true) {
+		$query = $this->createQuery($roleFiltered);
 
 		if ($sort=='sorting') {
 			$query->setOrderings(array(

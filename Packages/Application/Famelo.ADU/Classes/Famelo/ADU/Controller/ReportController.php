@@ -104,7 +104,7 @@ class ReportController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $document->assign('yearReporting', ($cycle==='currentYear' || $cycle==='lastYear' || $cycle==='-2years'));
         $document->assign('showComments', $showComments);
 
-        $filtered=false;
+        $filtered = false;
         $objects = $this->customerRepository->findUnsatisfied($search, $customerObj, $consultantObj, $branchObj, $sort, $cycle, $filtered);
         $customers = array();
         foreach ($objects as $object) {
@@ -116,7 +116,7 @@ class ReportController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $document->assign('objects', $objects);
         $document->assign('customers', $customers);
 
-		$document->download('ADU Bericht ' . date('d.m.Y') . '.pdf');
+		$document->send('ADU Bericht ' . date('d.m.Y') . '.pdf');
 	}
 
 	/**
