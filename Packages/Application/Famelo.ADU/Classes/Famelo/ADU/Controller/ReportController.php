@@ -116,7 +116,7 @@ class ReportController extends \TYPO3\Flow\Mvc\Controller\ActionController {
         $document->assign('objects', $objects);
         $document->assign('customers', $customers);
 
-		$document->send('ADU Bericht ' . date('d.m.Y') . '.pdf');
+		$document->download('ADU Bericht ' . date('d.m.Y') . '.pdf');
 	}
 
 	/**
