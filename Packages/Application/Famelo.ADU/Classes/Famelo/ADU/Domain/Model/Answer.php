@@ -202,9 +202,5 @@ class Answer {
 	public function getImage() {
 		return 'img/Button-' . ucfirst($this->getColor()) . '.png';
 	}
-
-	public function getNeedsAction() {
-		return in_array($this->getColor(), array('orange', 'red'));
-	}
 }
 ?>

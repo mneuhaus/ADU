@@ -95,7 +95,6 @@ class InlineFormElementBuilder extends DefaultFormElementBuilder {
 		foreach ($objects as $key => $object) {
 			$itemSection = $containerSection->createElement($namespace . '.' . $key, $this->tsValue('formFieldType') . 'Item');
 			$itemSection->setFormBuilder($this->tsValue('formBuilder'));
-			$itemSection->setObject($object);
 			$section = $this->tsValue('formBuilder')->createFormForSingleObject($itemSection, $object, $namespace . '.' . $key);
 			$section->setDataType($className);
 		}

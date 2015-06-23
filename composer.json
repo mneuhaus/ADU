@@ -1,6 +1,6 @@
 {
     "name": "famelo/distribution-adu",
-    "description": "Customer Satisfaction Management",
+    "description" : "Customer Satisfaction Management",
     "license": "GPL-3.0+",
     "repositories": [
         {
@@ -17,7 +17,7 @@
         "bin-dir": "bin"
     },
     "require": {
-        "typo3/flow": "dev-master#2866b6570ca4d8520138d5a5d495f49a61797b46",
+        "typo3/flow": "dev-master",
         "typo3/expose": "dev-master",
         "typo3/kickstart": "dev-master",
         "famelo/adu": "dev-master",

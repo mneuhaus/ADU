@@ -60,9 +60,6 @@ TYPO3:
           'Famelo.ADU:SingleLineTextFull':
             superTypes: ['TYPO3.Form:SingleLineText']
 
-          'Famelo.ADU:SingleLineTextFullRequired':
-            superTypes: ['TYPO3.Form:SingleLineText']
-
           'Famelo.ADU:Comment':
             superTypes: ['TYPO3.Form:SingleLineText']
 
