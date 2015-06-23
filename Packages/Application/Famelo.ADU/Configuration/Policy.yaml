@@ -16,7 +16,7 @@ resources:
 
 #    Everything: 'method(Famelo\ADU\Controller\(?!.*Login).*->.*Action(.*))'
     Features: 'method(Famelo\Features\Controller\(?!.*Login).*->(?!initialize).*Action(.*))'
-    
+
     deleteMethods: 'method(TYPO3\Expose\.*->delete.*())'
 
 
@@ -24,7 +24,7 @@ roles:
   Kundenberater: []
   Niederlassungsleiter: [ Kundenberater ]
   Innendienst: [ Niederlassungsleiter ]
-  Administrator: [ Innendienst ]
+  Administrator: []
 
 acls:
   Kundenberater:
@@ -42,7 +42,16 @@ acls:
     methods:
       Branch: GRANT
       User: GRANT
+
   Administrator:
     methods:
+      Home: GRANT
+      Survey: GRANT
+      Report: GRANT
+      UserManagement: GRANT
+      Customer: GRANT
+      Rating: GRANT
+      Branch: GRANT
+      User: GRANT
       Features: GRANT
-      deleteMethods:       GRANT
+      deleteMethods: GRANT

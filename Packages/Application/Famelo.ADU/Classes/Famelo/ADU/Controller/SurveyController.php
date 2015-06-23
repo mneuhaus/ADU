@@ -311,9 +311,11 @@ class SurveyController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 				->assign('survey', $survey);
 
 
-			foreach ($this->settings['MailRecipients']['NewProblematicSurvey'] as $recipient) {
-				$mail->setTo(array($recipient));
-				$mail->send();
+			if (is_array($this->settings['MailRecipients']['NewProblematicSurvey'])) {
+				foreach ($this->settings['MailRecipients']['NewProblematicSurvey'] as $recipient) {
+					$mail->setTo(array($recipient));
+					$mail->send();
+				}
 			}
 		}
 

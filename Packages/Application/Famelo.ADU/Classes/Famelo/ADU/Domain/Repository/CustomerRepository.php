@@ -127,14 +127,13 @@ class CustomerRepository extends \TYPO3\Flow\Persistence\Repository {
 			$customer = $customersCollection[$customerId]; // set back customer object
 
             if ($filtered === true) {
-
-			if ($ratingSum > 20 || $customer->getIsTerminated() || $customer->getIsNew() || $customer->getIsTender()) {
-				if ($customer->getIsTerminated() || $customer->getIsNew() || $customer->getIsTender()) {
-					$customersFinish[$customer->getName()] = $customer;
-				} else {
-					$customersFinish[] = $customer;
+				if ($ratingSum > 20 || $customer->getIsTerminated() || $customer->getIsNew() || $customer->getIsTender()) {
+					if ($customer->getIsTerminated() || $customer->getIsNew() || $customer->getIsTender()) {
+						$customersFinish[$customer->getName()] = $customer;
+					} else {
+						$customersFinish[] = $customer;
+					}
 				}
-			}
             } else {
                 $customersFinish[] = $customer;
             }
