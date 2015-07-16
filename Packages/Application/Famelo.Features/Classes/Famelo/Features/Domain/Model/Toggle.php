@@ -46,6 +46,7 @@ class Toggle {
 	 * The account
 	 * @var \TYPO3\Flow\Security\Account
 	 * @ORM\ManyToOne(inversedBy="features", cascade={"all"})
+   	 * @ORM\JoinColumn(onDelete="SET NULL")
 	 */
 	protected $account;
 
